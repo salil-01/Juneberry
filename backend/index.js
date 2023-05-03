@@ -2,6 +2,9 @@ const express = require("express");
 const cors = require("cors");
 const { connection } = require("./config/db");
 const { dressRouter } = require("./routes/Dress.route");
+const { adminRouter } = require("./routes/Admin.route");
+const { userRouter } = require("./routes/User.route");
+const { login } = require("./middlewares/login.middleware");
 require("dotenv").config();
 
 const app = express();
@@ -11,11 +14,16 @@ app.use(express.json());
 app.use(cors());
 
 app.use("/dress", dressRouter);
+app.use("/admin", adminRouter);
+app.use("/user", userRouter);
 
 /*-------- Home Page --------*/
 app.get("/", (req, res) => {
   res.status(200).send({ msg: "Home Page" });
 });
+//for admin/user login
+app.post("/login",login);
+/*-------- Protected Routes --------*/
 
 /*-------- Server --------*/
 app.listen(process.env.port || 3000, async () => {
