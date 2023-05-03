@@ -11,6 +11,7 @@ const auth = (req, res, next) => {
         //getting author and author id from token and linking it to body
         (req.body.authorID = decoded.data.authorID),
           (req.body.author = decoded.data.author);
+        req.body.role = decoded.data.role;
         next();
       } else {
         res.status(400).send({ err: error.message });

@@ -20,6 +20,7 @@ const login = async (req, res, next) => {
               data: {
                 authorID: user._id,
                 author: user.name,
+                role: "user",
               },
             },
             process.env.secretKey
@@ -46,6 +47,7 @@ const login = async (req, res, next) => {
               data: {
                 authorID: admin._id,
                 author: admin.name,
+                role: "admin",
               },
             },
             process.env.secretKey
