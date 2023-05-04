@@ -1,10 +1,11 @@
-import logo from "./logo.svg";
 import "./App.css";
 import { AllRoutes } from "./pages/AllRoutes";
 import { Link } from "react-router-dom";
 import { Flex } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
 import { Login } from "./pages/Login";
+import { Footer } from "./components/Footer";
+import { Navbar } from "./components/Navbar";
 
 function App() {
   const auth = useSelector((store) => {
@@ -22,7 +23,10 @@ function App() {
         <Link to={"/wishlist"}>wishlist</Link>
         <Link to={"/admin"} >Admin</Link>
       </Flex>
+      <Navbar />
+
       <AllRoutes />
+      <Footer />
     </div>
   );
 }
