@@ -1,6 +1,6 @@
 export const NotFound = ()=>{
     return (
         <>
-        Not Found Page</>
+        Error 404 Page Not Found </>
     )
 }
