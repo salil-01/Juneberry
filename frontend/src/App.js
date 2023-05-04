@@ -2,6 +2,8 @@ import "./App.css";
 import { AllRoutes } from "./pages/AllRoutes";
 import { Link } from "react-router-dom";
 import { Flex } from "@chakra-ui/react";
+import { Footer } from "./components/Footer";
+import { Navbar } from "./components/Navbar";
 
 function App() {
   return (
@@ -14,7 +16,10 @@ function App() {
         <Link to={"/bag"}>bag</Link>
         <Link to={"/wishlist"}>wishlist</Link>
       </Flex>
+      <Navbar />
+
       <AllRoutes />
+      <Footer />
     </div>
   );
 }
