@@ -28,7 +28,7 @@ const inital = {
   email: "",
   password: "",
 };
-export const Login = () => {
+export const Login = ({text}) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [formData, setFormData] = useState(inital);
   const [showPassword, setShowPassword] = useState(false);
@@ -72,7 +72,7 @@ export const Login = () => {
 
   return (
     <>
-      <Button onClick={onOpen}>Login</Button>
+      <Button onClick={onOpen}>{text}</Button>
       <Modal size={"lg"} isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent borderRadius={"0px"}>
