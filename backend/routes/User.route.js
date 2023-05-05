@@ -53,5 +53,20 @@ userRouter.post("/register", async (req, res) => {
   }
 });
 
+/* ------ Delete User ------ */
+userRouter.delete("/delete/:id", auth, async (req, res) => {
+  const { id } = req.params;
+  let data = req.body;
+  if (data.role === "admin") {
+    try {
+      await UserModel.findByIdAndDelete({ _id: id });
+      res.status(200).send({ res: "Deleted User Successfully" });
+    } catch (error) {
+      res.status(200).send(error);
+    }
+  } else {
+    res.status(200).send({ msg: "You are not Authorized" });
+  }
+});
 /* ------ Exports ------ */
 module.exports = { userRouter };

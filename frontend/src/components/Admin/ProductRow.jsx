@@ -4,6 +4,7 @@ import { RiDeleteBin5Fill } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 
 export const ProductRow = (productData) => {
+  // console.log(productData);
   const navigate = useNavigate();
   return (
     <Tr  h="50px">
@@ -28,7 +29,7 @@ export const ProductRow = (productData) => {
 
       <Td>
         <IconButton
-          onClick={() => navigate(`/admin/products/edit/${productData._id}`)}
+          onClick={() => navigate(`/admin/${productData.category}/edit/${productData._id}`)}
           border={"1px solid teal"}
           color={"teal"}
           _hover={{

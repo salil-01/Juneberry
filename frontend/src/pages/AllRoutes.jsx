@@ -3,6 +3,7 @@ import { AddProduct } from "../components/Admin/AddProduct";
 import { AllProducts } from "../components/Admin/AllProducts";
 import { EditProduct } from "../components/Admin/EditProduct";
 import Sidebar from "../components/Admin/Sidebar";
+import { Users } from "../components/Admin/Users";
 import { UserPrivateRoute } from "../components/UserPrivateRoute";
 import AdminPage from "./AdminPage";
 import { Bag } from "./Bag";
@@ -26,22 +27,39 @@ export const AllRoutes = () => {
       <Route path="/singleproduct/:id" element={<SingleProductPage />} />
       <Route path="/bag" element={<Bag />} />
       <Route path="/wishlist" element={<WishList />} />
-      <Route path="/admin" element={<AdminPage/>}/>
-      <Route path="/admin/products" element={
-        <Sidebar>
-          <AllProducts/>
-        </Sidebar>
-      }/>
-      <Route path="/admin/products/edit/:id" element={
-        <Sidebar>
-          <EditProduct/>
-        </Sidebar>
-      }/>
-      <Route path="/admin/products/add" element={
-        <Sidebar>
-          <AddProduct/>
-        </Sidebar>
-      }/>
+      <Route path="/admin" element={<AdminPage />} />
+      <Route
+        path="/admin/products"
+        element={
+          <Sidebar>
+            <AllProducts />
+          </Sidebar>
+        }
+      />
+      <Route
+        path="/admin/:category/edit/:id"
+        element={
+          <Sidebar>
+            <EditProduct />
+          </Sidebar>
+        }
+      />
+      <Route
+        path="/admin/products/add"
+        element={
+          <Sidebar>
+            <AddProduct />
+          </Sidebar>
+        }
+      />
+      <Route
+        path="/admin/users"
+        element={
+          <Sidebar>
+            <Users />
+          </Sidebar>
+        }
+      />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

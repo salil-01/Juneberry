@@ -64,17 +64,28 @@ export const getProduct = (category) => (dispatch) => {
 };
 
 //patching data
-export const editProduct = (dataobj, id) => async (dispatch) => {
-  dispatch({ type: PRODUCT_REQUEST });
-  await axios
-    .patch(`${process.env.REACT_APP_BACKEND_URL}/dress/${id}`, dataobj)
-    .then(() => {
-      dispatch({ type: PATCH_PRODUCT_SUCCESS });
-    })
-    .catch(() => {
-      dispatch({ type: PRODUCT_FAILURE });
-    });
-};
+export const editProduct =
+  (dataobj, id, category, token) => async (dispatch) => {
+    dispatch({ type: PRODUCT_REQUEST });
+    await axios
+      .patch(
+        `${process.env.REACT_APP_BACKEND_URL}/${category}/update/${id}`,
+        dataobj,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        console.log(res);
+        dispatch({ type: PATCH_PRODUCT_SUCCESS });
+      })
+      .catch(() => {
+        dispatch({ type: PRODUCT_FAILURE });
+      });
+  };
 
 //delete product
 export const deleteProduct = (id) => async (dispatch) => {

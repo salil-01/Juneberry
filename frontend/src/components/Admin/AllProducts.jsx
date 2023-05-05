@@ -74,7 +74,7 @@ export const AllProducts = () => {
   const productData = useSelector((store) => {
     return store.adminReducer;
   });
-  console.log(productData);
+  // console.log(productData);
   useEffect(() => {
     dispatch(getProduct(category));
   }, [category]);
@@ -125,7 +125,7 @@ export const AllProducts = () => {
         </Thead>
         <Tbody>
           {productData.products.msg?.map((element) => (
-            <ProductRow key={element._id} {...element} />
+            <ProductRow key={element._id} {...element} category={category} />
           ))}
         </Tbody>
         <Tfoot></Tfoot>
