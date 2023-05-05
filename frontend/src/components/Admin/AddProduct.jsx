@@ -78,51 +78,60 @@ export const AddProduct = () => {
   const addProductData = useSelector((store) => {
     return store.adminReducer;
   });
-  console.log(addProductData);
-  //   const handleChange = () => {};
-  const handleSubmit = (e) => {
+  const token = useSelector((store) => {
+    return store.authReducer.token;
+  });
+  const handleSubmit = async(e) => {
     e.preventDefault();
     console.log(state);
-    // if (state.category === "dress") {
-    //   dispatcher(addProductDress(state))
-    //     .then((res) => {
-    //       toast({
-    //         position: "top",
-    //         title: `Product Added Successfully`,
-    //         status: "success",
-    //         isClosable: true,
-    //       });
-    //     })
-    //     .catch((error) => {
-    //       console.log(error);
-    //       toast({
-    //         position: "top",
-    //         title: `Error`,
-    //         status: "error",
-    //         isClosable: true,
-    //       });
-    //     });
-    // } else {
-    //   dispatcher(addProductShoes(state))
-    //     .then((res) => {
-    //       toast({
-    //         position: "top",
-    //         title: `Product Added Successfully`,
-    //         status: "success",
-    //         isClosable: true,
-    //       });
-    //     })
-    //     .catch((error) => {
-    //       console.log(error);
-    //       toast({
-    //         position: "top",
-    //         title: `Error`,
-    //         status: "error",
-    //         isClosable: true,
-    //       });
-    //     });
-    // }
-    // dispatch({ type: "reset" });
+    let productData = {
+      name: state.name,
+      img: state.img,
+      mrp: state.mrp,
+      price: state.price,
+      brand: state.brand,
+      rating:4.3
+    };
+    if (state.category === "dress") {
+      dispatcher(addProductDress(productData,token))
+        .then((res) => {
+          toast({
+            position: "top",
+            title: `Product Added Successfully`,
+            status: "success",
+            isClosable: true,
+          });
+        })
+        .catch((error) => {
+          console.log(error);
+          toast({
+            position: "top",
+            title: `Error`,
+            status: "error",
+            isClosable: true,
+          });
+        });
+    } else if(state.category==="shoes"){
+      dispatcher(addProductShoes(productData, token))
+        .then((res) => {
+          toast({
+            position: "top",
+            title: `Product Added Successfully`,
+            status: "success",
+            isClosable: true,
+          });
+        })
+        .catch((error) => {
+          console.log(error);
+          toast({
+            position: "top",
+            title: `Error`,
+            status: "error",
+            isClosable: true,
+          });
+        });
+    }
+    dispatch({ type: "reset" });
   };
   return (
     <>
@@ -143,7 +152,7 @@ export const AddProduct = () => {
             <FormLabel>Product Title</FormLabel>
             <Input
               ref={initialRef}
-            border={"1px dotted gray"}
+              border={"1px dotted gray"}
               name="name"
               onChange={(e) =>
                 dispatch({ type: "NAME", payload: e.target.value })
@@ -166,7 +175,7 @@ export const AddProduct = () => {
           <FormControl mt={4} isRequired>
             <FormLabel>Product Mrp</FormLabel>
             <Input
-                border={"1px dotted gray"}
+              border={"1px dotted gray"}
               name="mrp"
               onChange={(e) =>
                 dispatch({ type: "MRP", payload: e.target.value })
@@ -179,7 +188,7 @@ export const AddProduct = () => {
           <FormControl mt={4} isRequired>
             <FormLabel>Product Price</FormLabel>
             <Input
-                border={"1px dotted gray"}
+              border={"1px dotted gray"}
               name="price"
               onChange={(e) =>
                 dispatch({ type: "PRICE", payload: e.target.value })
@@ -196,6 +205,7 @@ export const AddProduct = () => {
               onChange={(e) =>
                 dispatch({ type: "BRAND", payload: e.target.value })
               }
+              value={state.brand}
             >
               <option value="Maeve">Maeve</option>
               <option value="Sloggi">Sloggi</option>
@@ -210,6 +220,7 @@ export const AddProduct = () => {
               onChange={(e) =>
                 dispatch({ type: "CATEGORY", payload: e.target.value })
               }
+              value={state.category}
             >
               <option value="dress">Dress</option>
               <option value="shoes">Shoes</option>

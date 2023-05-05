@@ -9,25 +9,40 @@ import {
   PRODUCT_FAILURE,
   PRODUCT_REQUEST,
 } from "./actionTypes";
-const url = `https://juneberry-backend.onrender.com`;
 
 //posting product data(adding a single product)
-export const addProductDress = (productData) => async (dispatch) => {
+export const addProductDress = (productData, token) => async (dispatch) => {
   dispatch({ type: PRODUCT_REQUEST });
   await axios
-    .post(`${url}/dress/add`, productData)
-    .then(() => {
+    .post(
+      `${process.env.REACT_APP_BACKEND_process.env.REACT_APP_BACKEND_URL}/dress/add`,
+      productData,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    )
+    .then((res) => {
+      console.log(res);
       dispatch({ type: POST_PRODUCT_SUCCESS });
     })
     .catch(() => {
       dispatch({ type: PRODUCT_FAILURE });
     });
 };
-export const addProductShoes = (productData) => async (dispatch) => {
+export const addProductShoes = (productData, token) => async (dispatch) => {
   dispatch({ type: PRODUCT_REQUEST });
   await axios
-    .post(`${url}/shoes/add`, productData)
-    .then(() => {
+    .post(`${process.env.REACT_APP_BACKEND_URL}/shoes/add`, productData, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((res) => {
+      console.log(res);
       dispatch({ type: POST_PRODUCT_SUCCESS });
     })
     .catch(() => {
@@ -36,10 +51,10 @@ export const addProductShoes = (productData) => async (dispatch) => {
 };
 
 //getting data from server and populating on dom
-export const getProduct = (dispatch) => {
+export const getProduct = (category) => (dispatch) => {
   dispatch({ type: PRODUCT_REQUEST });
   axios
-    .get(`${url}/dress`)
+    .get(`${process.env.REACT_APP_BACKEND_URL}/${category}`)
     .then((res) => {
       dispatch({ type: GET_PRODUCT_SUCCESS, payload: res.data });
     })
@@ -52,7 +67,7 @@ export const getProduct = (dispatch) => {
 export const editProduct = (dataobj, id) => async (dispatch) => {
   dispatch({ type: PRODUCT_REQUEST });
   await axios
-    .patch(`${url}/dress/${id}`, dataobj)
+    .patch(`${process.env.REACT_APP_BACKEND_URL}/dress/${id}`, dataobj)
     .then(() => {
       dispatch({ type: PATCH_PRODUCT_SUCCESS });
     })
@@ -65,7 +80,7 @@ export const editProduct = (dataobj, id) => async (dispatch) => {
 export const deleteProduct = (id) => async (dispatch) => {
   dispatch({ type: PRODUCT_REQUEST });
   await axios
-    .delete(`${url}/dress/${id}`)
+    .delete(`${process.env.REACT_APP_BACKEND_URL}/dress/${id}`)
     .then(() => {
       dispatch({ type: DELETE_PRODUCT_SUCCESS });
     })
@@ -78,7 +93,7 @@ export const deleteProduct = (id) => async (dispatch) => {
 export const getOrders = (dispatch) => {
   dispatch({ type: PRODUCT_REQUEST });
   axios
-    .get(`${url}/order`)
+    .get(`${process.env.REACT_APP_BACKEND_URL}/order`)
     .then((res) => {
       dispatch({ type: GET_ORDER_SUCCESS, payload: res.data });
     })
@@ -91,7 +106,7 @@ export const getOrders = (dispatch) => {
 export const changeOrderStatus = (id, value) => async (dispatch) => {
   dispatch({ type: PRODUCT_REQUEST });
   await axios
-    .patch(`${url}/order/${id}`, {
+    .patch(`${process.env.REACT_APP_BACKEND_URL}/order/${id}`, {
       status: value,
     })
     .then(() => {

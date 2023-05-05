@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 export const ProductRow = (productData) => {
   const navigate = useNavigate();
   return (
-    <Tr key={productData._id} h="50px">
+    <Tr  h="50px">
       <Td>
         <Text>{productData.name}</Text>
       </Td>

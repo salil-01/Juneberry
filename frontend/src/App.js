@@ -14,7 +14,7 @@ function App() {
   console.log(auth);
   return (
     <div className="App">
-      {/* <Flex justifyContent={"space-between"}>
+      <Flex justifyContent={"space-between"}>
         <Link to={"/login"}>login</Link>
         <Link to={"/signup"}>signup</Link>
         <Link to={"/products"}>products</Link>
@@ -22,7 +22,7 @@ function App() {
         {!auth ? <Login text={"Bag"} /> : <Link to={"/bag"}>bag</Link>}
         <Link to={"/wishlist"}>wishlist</Link>
         <Link to={"/admin"} >Admin</Link>
-      </Flex> */}
+      </Flex>
       {/* <Navbar /> */}
 
       <AllRoutes />
