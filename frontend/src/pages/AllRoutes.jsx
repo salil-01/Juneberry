@@ -1,4 +1,5 @@
 import { Route, Routes } from "react-router-dom";
+import { AddProduct } from "../components/Admin/AddProduct";
 import { AllProducts } from "../components/Admin/AllProducts";
 import { EditProduct } from "../components/Admin/EditProduct";
 import Sidebar from "../components/Admin/Sidebar";
@@ -34,6 +35,11 @@ export const AllRoutes = () => {
       <Route path="/admin/products/edit/:id" element={
         <Sidebar>
           <EditProduct/>
+        </Sidebar>
+      }/>
+      <Route path="/admin/products/add" element={
+        <Sidebar>
+          <AddProduct/>
         </Sidebar>
       }/>
       <Route path="*" element={<NotFound />} />

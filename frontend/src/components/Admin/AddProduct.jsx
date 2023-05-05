@@ -12,51 +12,52 @@ import {
 } from "@chakra-ui/react";
 import { useReducer, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addProductMen, addProductWomen } from "../../../redux/admin/action";
+import {
+  addProductDress,
+  addProductShoes,
+} from "../../redux/adminReducer/action";
 const initialState = {
-  hreftag:
-    "https://www.aeo.in/product/american-eagle-men-blue-micro-dot-button-up-resort-shirt-873382.html",
-  title: "",
-  image_front: " ",
-  image_reverse: "",
+  name: "",
+  img: " ",
+  mrp: "",
   price: "",
-  type: "",
+  brand: "",
   category: "",
 };
 const reducerFn = (state, action) => {
   const { type, payload } = action;
   switch (type) {
-    case "title": {
+    case "NAME": {
       return {
         ...state,
-        title: payload,
+        name: payload,
       };
     }
-    case "image_front": {
+    case "IMG": {
       return {
         ...state,
-        image_front: payload,
+        img: payload,
       };
     }
-    case "image_reverse": {
+    case "MRP": {
       return {
         ...state,
-        image_reverse: payload,
+        mrp: +payload,
       };
     }
-    case "price": {
+    case "PRICE": {
       return {
         ...state,
         price: +payload,
       };
     }
-    case "type": {
+    case "BRAND": {
       return {
         ...state,
-        type: payload,
+        brand: payload,
       };
     }
-    case "category": {
+    case "CATEGORY": {
       return {
         ...state,
         category: payload,
@@ -75,53 +76,53 @@ export const AddProduct = () => {
   const [state, dispatch] = useReducer(reducerFn, initialState);
   const dispatcher = useDispatch();
   const addProductData = useSelector((store) => {
-    return store.AdminReducer;
+    return store.adminReducer;
   });
   console.log(addProductData);
   //   const handleChange = () => {};
   const handleSubmit = (e) => {
     e.preventDefault();
-    // console.log(state);
-    if (state.category === "men") {
-      dispatcher(addProductMen(state))
-        .then((res) => {
-          toast({
-            position: "top",
-            title: `Product Added Successfully`,
-            status: "success",
-            isClosable: true,
-          });
-        })
-        .catch((error) => {
-          console.log(error);
-          toast({
-            position: "top",
-            title: `Error`,
-            status: "error",
-            isClosable: true,
-          });
-        });
-    } else {
-      dispatcher(addProductWomen(state))
-        .then((res) => {
-          toast({
-            position: "top",
-            title: `Product Added Successfully`,
-            status: "success",
-            isClosable: true,
-          });
-        })
-        .catch((error) => {
-          console.log(error);
-          toast({
-            position: "top",
-            title: `Error`,
-            status: "error",
-            isClosable: true,
-          });
-        });
-    }
-    dispatch({ type: "reset" });
+    console.log(state);
+    // if (state.category === "dress") {
+    //   dispatcher(addProductDress(state))
+    //     .then((res) => {
+    //       toast({
+    //         position: "top",
+    //         title: `Product Added Successfully`,
+    //         status: "success",
+    //         isClosable: true,
+    //       });
+    //     })
+    //     .catch((error) => {
+    //       console.log(error);
+    //       toast({
+    //         position: "top",
+    //         title: `Error`,
+    //         status: "error",
+    //         isClosable: true,
+    //       });
+    //     });
+    // } else {
+    //   dispatcher(addProductShoes(state))
+    //     .then((res) => {
+    //       toast({
+    //         position: "top",
+    //         title: `Product Added Successfully`,
+    //         status: "success",
+    //         isClosable: true,
+    //       });
+    //     })
+    //     .catch((error) => {
+    //       console.log(error);
+    //       toast({
+    //         position: "top",
+    //         title: `Error`,
+    //         status: "error",
+    //         isClosable: true,
+    //       });
+    //     });
+    // }
+    // dispatch({ type: "reset" });
   };
   return (
     <>
@@ -142,75 +143,76 @@ export const AddProduct = () => {
             <FormLabel>Product Title</FormLabel>
             <Input
               ref={initialRef}
-              placeholder="Please Enter Product Title"
-              name="title"
+            border={"1px dotted gray"}
+              name="name"
               onChange={(e) =>
-                dispatch({ type: "title", payload: e.target.value })
+                dispatch({ type: "NAME", payload: e.target.value })
               }
-              value={state.title}
+              value={state.name}
             />
           </FormControl>
           <FormControl mt={4} isRequired>
-            <FormLabel>Product Image I</FormLabel>
+            <FormLabel>Product Image</FormLabel>
             <Input
-              value={state.image_front}
-              placeholder="Please Enter URL for Ist Image"
-              name="image_front"
+              value={state.img}
+              border={"1px dotted gray"}
+              name="img"
               onChange={(e) =>
-                dispatch({ type: "image_front", payload: e.target.value })
+                dispatch({ type: "IMG", payload: e.target.value })
               }
               //
             />
           </FormControl>
           <FormControl mt={4} isRequired>
-            <FormLabel>Product Image II</FormLabel>
+            <FormLabel>Product Mrp</FormLabel>
             <Input
-              placeholder="Please Enter URL for IInd Image"
-              name="image_reverse"
+                border={"1px dotted gray"}
+              name="mrp"
               onChange={(e) =>
-                dispatch({ type: "image_reverse", payload: e.target.value })
+                dispatch({ type: "MRP", payload: e.target.value })
               }
-              value={state.image_reverse}
+              type="number"
+              value={state.mrp}
             />
           </FormControl>
 
           <FormControl mt={4} isRequired>
             <FormLabel>Product Price</FormLabel>
             <Input
-              placeholder="Please Enter Price"
+                border={"1px dotted gray"}
               name="price"
               onChange={(e) =>
-                dispatch({ type: "price", payload: e.target.value })
+                dispatch({ type: "PRICE", payload: e.target.value })
               }
               value={state.price}
               type="number"
             />
           </FormControl>
           <FormControl mt={4} isRequired>
-            <FormLabel>Gender</FormLabel>
+            <FormLabel>Product Brand</FormLabel>
             <Select
-              placeholder="Select Gender"
+              placeholder="Select Brand"
+              border={"1px dotted gray"}
               onChange={(e) =>
-                dispatch({ type: "category", payload: e.target.value })
+                dispatch({ type: "BRAND", payload: e.target.value })
               }
             >
-              <option value="men">Men</option>
-              <option value="women">Women</option>
+              <option value="Maeve">Maeve</option>
+              <option value="Sloggi">Sloggi</option>
+              <option value="Pilcro">Pilcro</option>
             </Select>
           </FormControl>
           <FormControl mt={4} isRequired>
-            <FormLabel>Category</FormLabel>
+            <FormLabel>Product Category</FormLabel>
             <Select
               placeholder="Select Category"
+              border={"1px dotted gray"}
               onChange={(e) =>
-                dispatch({ type: "type", payload: e.target.value })
+                dispatch({ type: "CATEGORY", payload: e.target.value })
               }
             >
-              <option value="tshirt">T Shirt</option>
-              <option value="shirt">Shirt</option>
-              <option value="shorts">Shorts</option>
-              <option value="jeans">Jeans</option>
-              <option value="dress">Women Dress</option>
+              <option value="dress">Dress</option>
+              <option value="shoes">Shoes</option>
             </Select>
           </FormControl>
           <Stack spacing={10} mt={"30px"} pt={2}>

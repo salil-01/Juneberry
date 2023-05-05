@@ -12,10 +12,10 @@ import {
 const url = `https://juneberry-backend.onrender.com`;
 
 //posting product data(adding a single product)
-export const addProductMen = (productData) => async (dispatch) => {
+export const addProductDress = (productData) => async (dispatch) => {
   dispatch({ type: PRODUCT_REQUEST });
   await axios
-    .post(`${url}/men`, productData)
+    .post(`${url}/dress/add`, productData)
     .then(() => {
       dispatch({ type: POST_PRODUCT_SUCCESS });
     })
@@ -23,10 +23,10 @@ export const addProductMen = (productData) => async (dispatch) => {
       dispatch({ type: PRODUCT_FAILURE });
     });
 };
-export const addProductWomen = (productData) => async (dispatch) => {
+export const addProductShoes = (productData) => async (dispatch) => {
   dispatch({ type: PRODUCT_REQUEST });
   await axios
-    .post(`${url}/women`, productData)
+    .post(`${url}/shoes/add`, productData)
     .then(() => {
       dispatch({ type: POST_PRODUCT_SUCCESS });
     })
@@ -39,7 +39,7 @@ export const addProductWomen = (productData) => async (dispatch) => {
 export const getProduct = (dispatch) => {
   dispatch({ type: PRODUCT_REQUEST });
   axios
-    .get(`${url}/men`)
+    .get(`${url}/dress`)
     .then((res) => {
       dispatch({ type: GET_PRODUCT_SUCCESS, payload: res.data });
     })
@@ -52,7 +52,7 @@ export const getProduct = (dispatch) => {
 export const editProduct = (dataobj, id) => async (dispatch) => {
   dispatch({ type: PRODUCT_REQUEST });
   await axios
-    .patch(`${url}/men/${id}`, dataobj)
+    .patch(`${url}/dress/${id}`, dataobj)
     .then(() => {
       dispatch({ type: PATCH_PRODUCT_SUCCESS });
     })
@@ -65,7 +65,7 @@ export const editProduct = (dataobj, id) => async (dispatch) => {
 export const deleteProduct = (id) => async (dispatch) => {
   dispatch({ type: PRODUCT_REQUEST });
   await axios
-    .delete(`${url}/men/${id}`)
+    .delete(`${url}/dress/${id}`)
     .then(() => {
       dispatch({ type: DELETE_PRODUCT_SUCCESS });
     })
