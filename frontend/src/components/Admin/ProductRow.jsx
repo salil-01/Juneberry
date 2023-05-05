@@ -43,7 +43,7 @@ export const ProductRow = (productData) => {
       </Td>
       <Td>
         <IconButton
-          //   onClick={() => handleDelete(prod.id)}
+            onClick={() => productData.handleDelete(productData._id,productData.category)}
           border={"1px solid red"}
           color={"red"}
           _hover={{

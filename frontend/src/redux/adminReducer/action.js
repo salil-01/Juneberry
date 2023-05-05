@@ -25,7 +25,7 @@ export const addProductDress = (productData, token) => async (dispatch) => {
       }
     )
     .then((res) => {
-      console.log(res);
+      // console.log(res);
       dispatch({ type: POST_PRODUCT_SUCCESS });
     })
     .catch(() => {
@@ -42,7 +42,7 @@ export const addProductShoes = (productData, token) => async (dispatch) => {
       },
     })
     .then((res) => {
-      console.log(res);
+      // console.log(res);
       dispatch({ type: POST_PRODUCT_SUCCESS });
     })
     .catch(() => {
@@ -88,11 +88,17 @@ export const editProduct =
   };
 
 //delete product
-export const deleteProduct = (id) => async (dispatch) => {
+export const deleteProduct = (id, category, token) => async (dispatch) => {
   dispatch({ type: PRODUCT_REQUEST });
   await axios
-    .delete(`${process.env.REACT_APP_BACKEND_URL}/dress/${id}`)
-    .then(() => {
+    .delete(`${process.env.REACT_APP_BACKEND_URL}/${category}/delete/${id}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((res) => {
+      console.log(res);
       dispatch({ type: DELETE_PRODUCT_SUCCESS });
     })
     .catch(() => {
