@@ -10,58 +10,19 @@ import {
   Input,
   CloseButton,
   Text,
+  Select,
+  Heading,
+  Spacer,
+  useToast,
+  Spinner,
 } from "@chakra-ui/react";
 import { BiSearchAlt2 } from "react-icons/bi";
 import { BiSort } from "react-icons/bi";
 import { useState } from "react";
 import { ProductRow } from "./ProductRow";
-const productData = [
-  {
-    _id: "64522cd8278fb6ceb2f28137",
-    name: "Pilcro The Romy Relaxed Buttondown",
-    img: "https://images.urbndata.com/is/image/Anthropologie/4110907290003_019_b2?$a15-pdp-detail-shot$&fit=constrain&fmt=webp&qlt=80&wid=720",
-    price: 7399.47,
-    mrp: 8057.2,
-    brand: "Pilcro",
-    rating: 4.2,
-  },
-  {
-    _id: "64522cd8278fb6ceb2f28137",
-    name: "Pilcro The Romy Relaxed Buttondown",
-    img: "https://images.urbndata.com/is/image/Anthropologie/4110907290003_019_b2?$a15-pdp-detail-shot$&fit=constrain&fmt=webp&qlt=80&wid=720",
-    price: 7399.47,
-    mrp: 8057.2,
-    brand: "Pilcro",
-    rating: 4.2,
-  },
-  {
-    _id: "64522cd8278fb6ceb2f28137",
-    name: "Pilcro The Romy Relaxed Buttondown",
-    img: "https://images.urbndata.com/is/image/Anthropologie/4110907290003_019_b2?$a15-pdp-detail-shot$&fit=constrain&fmt=webp&qlt=80&wid=720",
-    price: 7399.47,
-    mrp: 8057.2,
-    brand: "Pilcro",
-    rating: 4.2,
-  },
-  {
-    _id: "64522cd8278fb6ceb2f28137",
-    name: "Pilcro The Romy Relaxed Buttondown",
-    img: "https://images.urbndata.com/is/image/Anthropologie/4110907290003_019_b2?$a15-pdp-detail-shot$&fit=constrain&fmt=webp&qlt=80&wid=720",
-    price: 7399.47,
-    mrp: 8057.2,
-    brand: "Pilcro",
-    rating: 4.2,
-  },
-  {
-    _id: "64522cd8278fb6ceb2f28137",
-    name: "Pilcro The Romy Relaxed Buttondown",
-    img: "https://images.urbndata.com/is/image/Anthropologie/4110907290003_019_b2?$a15-pdp-detail-shot$&fit=constrain&fmt=webp&qlt=80&wid=720",
-    price: 7399.47,
-    mrp: 8057.2,
-    brand: "Pilcro",
-    rating: 4.2,
-  },
-];
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteProduct, getProduct } from "../../redux/adminReducer/action";
 const SearchField = ({ field, onSearch }) => {
   const [search, setSearch] = useState(false);
   const [text, setText] = useState("");
@@ -110,43 +71,92 @@ const SortFields = ({ text }) => {
 };
 export const AllProducts = () => {
   const onSearch = () => {};
+  const [category, setCategory] = useState("dress");
+  const dispatch = useDispatch();
+  const toast = useToast();
+  const productData = useSelector((store) => {
+    return store.adminReducer;
+  });
+  const token = useSelector((store) => {
+    return store.authReducer.token;
+  });
+  const handleDelete = (id, category) => {
+    // console.log(id, category);
+    dispatch(deleteProduct(id, category, token)).then(() => {
+      dispatch(getProduct(category));
+      toast({
+        position: "top",
+        title: `Product Deleted Successfully`,
+        status: "success",
+        isClosable: true,
+      });
+    });
+  };
+  // console.log(productData);
+  useEffect(() => {
+    dispatch(getProduct(category));
+  }, [category]);
   return (
-    <Table size="sm" border={"1px solid red"}>
-      <Thead>
-        <Tr border={"1px solid red"}>
-          <Th>
-            <SearchField field={"Name"} onSearch={onSearch} />
-          </Th>
-          <Th>
-            <SearchField field={"ID"} onSearch={onSearch} />
-          </Th>
-          <Th>
-            <SortFields text="MRP ($)" />
-          </Th>
-          <Th>
-            <SortFields text="Price ($)" />
-          </Th>
-          <Th>
-            <SortFields text="Brand" />
-          </Th>
-          <Th>
-            <SortFields text="Rating" />
-          </Th>
-          <Th>
-            <Text>EDIT</Text>
-          </Th>
-          <Th>
-            <Text>DELETE</Text>
-          </Th>
-          <Th />
-        </Tr>
-      </Thead>
-      <Tbody>
-        {productData?.map((element) => (
-          <ProductRow key={element._id} {...element} />
-        ))}
-      </Tbody>
-      <Tfoot></Tfoot>
-    </Table>
+    <>
+      <Flex mb={"10px"}>
+        <Spacer />
+        <Select
+          width={"25%"}
+          placeholder="Select Category"
+          border={"1px dotted gray"}
+          onChange={(e) => setCategory(e.target.value)}
+          value={category}
+        >
+          <option value="dress">Dress</option>
+          <option value="shoes">Shoes</option>
+        </Select>
+      </Flex>
+      {productData.isLoading ? (
+        <Spinner size={"xl"} marginTop={"20vh"} />
+      ) : (
+        <Table variant={"striped"} bg={"#FFF3E2"} size="sm" >
+          <Thead>
+            <Tr >
+              <Th>
+                <SearchField field={"Name"} onSearch={onSearch} />
+              </Th>
+              <Th>
+                <SearchField field={"ID"} onSearch={onSearch} />
+              </Th>
+              <Th>
+                <SortFields text="MRP ($)" />
+              </Th>
+              <Th>
+                <SortFields text="Price ($)" />
+              </Th>
+              <Th>
+                <SortFields text="Brand" />
+              </Th>
+              <Th>
+                <SortFields text="Rating" />
+              </Th>
+              <Th>
+                <Text>EDIT</Text>
+              </Th>
+              <Th>
+                <Text>DELETE</Text>
+              </Th>
+              <Th />
+            </Tr>
+          </Thead>
+          <Tbody>
+            {productData.products.msg?.map((element) => (
+              <ProductRow
+                key={element._id}
+                {...element}
+                category={category}
+                handleDelete={handleDelete}
+              />
+            ))}
+          </Tbody>
+          <Tfoot></Tfoot>
+        </Table>
+      )}
+    </>
   );
 };

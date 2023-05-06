@@ -56,14 +56,14 @@ const login = async (req, res, next) => {
             .status(200)
             .send({ msg: "Login Successfull", token, admin: admin.name });
         } else {
-          res.status(200).send({
+          res.status(401).send({
             err: err,
             msg: "Invalid Credentials",
           });
         }
       });
     } else {
-      res.status(200).send({ msg: "User Does Not Exist" });
+      res.status(404).send({ msg: "User Does Not Exist" });
     }
   } catch (error) {
     res.status(400).send({ error: error.message });

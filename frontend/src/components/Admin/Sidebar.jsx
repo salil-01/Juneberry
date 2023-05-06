@@ -35,11 +35,11 @@ import { useDispatch, useSelector } from "react-redux";
 // import { logout } from "../../../redux/auth/action";
 import logo from "../../assets/JuneBerry2.png";
 const LinkItems = [
-  { name: "DashBoard", icon: FiHome, path: "/admin-dashboard" },
+  { name: "DashBoard", icon: FiHome, path: "/admin/dashboard" },
   { name: "Products", icon: BsBag, path: "/admin/products" },
-  { name: "Add Product", icon: MdAddShoppingCart, path: "/admin-addproduct" },
-  { name: "Orders", icon: BsBagCheck, path: "/admin-orders" },
-  { name: "Users", icon: HiUsers, path: "/admin-users" },
+  { name: "Add Product", icon: MdAddShoppingCart, path: "/admin/products/add" },
+  { name: "Orders", icon: BsBagCheck, path: "/admin/orders" },
+  { name: "Users", icon: HiUsers, path: "/admin/users" },
   { name: "Go Back", icon: FaUserFriends, path: "/" },
 ];
 export default function Sidebar({ children }) {
@@ -216,7 +216,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
             >
               <HStack spacing="20px">
                 {/* <Avatar size={"lg"} src="zenitsu.png" /> */}
-                <img src="zenitsu.png" width={"60px"} alt="profile_img" />
+                <img src="profile.jpg" width={"60px"} alt="profile_img" />
 
                 <Box padding={"5px"} display={{ base: "none", md: "block" }}>
                   <Text fontSize="xs" color="gray.600">

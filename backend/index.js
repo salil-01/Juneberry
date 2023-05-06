@@ -6,6 +6,7 @@ const { adminRouter } = require("./routes/Admin.route");
 const { userRouter } = require("./routes/User.route");
 const { login } = require("./middlewares/login.middleware");
 const { shoesRouter } = require("./routes/Shoe.route");
+const { orderRouter } = require("./routes/Order.route");
 require("dotenv").config();
 
 const app = express();
@@ -18,7 +19,7 @@ app.use("/dress", dressRouter);
 app.use("/admin", adminRouter);
 app.use("/user", userRouter);
 app.use("/shoes", shoesRouter);
-
+app.use("/order", orderRouter);
 /*-------- Home Page --------*/
 app.get("/", (req, res) => {
   res.status(200).send({ msg: "Home Page" });
