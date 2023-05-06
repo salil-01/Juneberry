@@ -5,7 +5,7 @@ export const login = (userData) => async (dispatch) => {
   await axios
     .post(`${process.env.REACT_APP_BACKEND_URL}/login`, userData)
     .then((res) => {
-      console.log(res.data);
+      // console.log(res.data);
       if (res.data.token) {
         dispatch({ type: LOGIN_SUCCESS, payload: res.data });
         // return Promise.resolve();

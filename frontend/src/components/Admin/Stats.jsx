@@ -2,31 +2,27 @@ import { Box, Text } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import axios from "axios";
-import { getOrders, getProduct } from "../../redux/adminReducer/action";
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-const getData = async(url) => {
-    return await axios
-      .get(url)
-      .then((res) => 
-           res
-      )
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+const getData = async (url) => {
+  return await axios
+    .get(url)
+    .then((res) => res)
+    .catch((error) => {
+      console.log(error);
+    });
+};
 
 export const Chart = () => {
   const [menData, setMenData] = useState(0);
   const [womenData, setWomenData] = useState(0);
   const [pending, setPending] = useState(0);
   const [delivered, setDelieverd] = useState(0);
-  const dispatch = useDispatch();
-  const adminData = useSelector((store)=>{
-    return store.adminReducer
-  })
+  const authData = useSelector((store) => {
+    return store.authReducer;
+  });
   // console.log(adminData);
   useEffect(() => {
     //dress data
@@ -39,19 +35,32 @@ export const Chart = () => {
     });
 
     //orders data
-    dispatch(getOrders(adminData.token)).then(()=>{
-      let pendingCount = 0;
-      let deleiverdCount = 0;
-      adminData?.orders?.map((item) => {
-        if (item.status === "pending") {
-          pendingCount++;
-        } else {
-          deleiverdCount++;
-        }
+    axios
+      .get(`${process.env.REACT_APP_BACKEND_URL}/order`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${authData.token}`,
+        },
+      })
+      .then((res) => {
+        // console.log(res);
+        // setOrderCount(res.data.orders.length);
+        let pendingCount = 0;
+        let deleiverdCount = 0;
+        res?.data?.orders?.map((item) => {
+          if (item.status === "pending") {
+            pendingCount++;
+          } else {
+            deleiverdCount++;
+          }
+        });
+        setPending(pendingCount);
+        setDelieverd(deleiverdCount);
+      })
+      .catch((error) => {
+        console.log(error);
       });
-      setPending(pendingCount);
-      setDelieverd(deleiverdCount);
-    })
+    // dispatch(getOrders(adminData.token)).then(() => {});
   }, []);
 
   const data = {
@@ -79,7 +88,6 @@ export const Chart = () => {
         width={{ sm: "90%", md: "80%", lg: "50%" }}
         margin={"20px auto"}
         p={3}
-        
       >
         <Box>
           <Text fontSize="xl" color={"white"} mb={"10px"}>

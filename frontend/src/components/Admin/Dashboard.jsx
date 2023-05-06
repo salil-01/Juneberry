@@ -76,12 +76,8 @@ export const Dashboard = () => {
   const [menData, setMenData] = useState(0);
   const [womenData, setWomenData] = useState(0);
   const [orderCount, setOrderCount] = useState(0);
-  const dispatch = useDispatch();
   const authData = useSelector((store) => {
     return store.authReducer;
-  });
-  const adminData = useSelector((store) => {
-    return store.adminReducer;
   });
   // console.log(adminData);
   useEffect(() => {
@@ -109,8 +105,16 @@ export const Dashboard = () => {
     })
 
     //order data
-    dispatch(getOrders(authData.token)).then(()=>{
-      setOrderCount(adminData.orders.length)
+    axios.get(`${process.env.REACT_APP_BACKEND_URL}/order`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${authData.token}`,
+      },
+    }).then((res)=>{
+      // console.log(res);
+      setOrderCount(res.data.orders.length)
+    }).catch((error)=>{
+      console.log(error);
     })
   }, []);
 
