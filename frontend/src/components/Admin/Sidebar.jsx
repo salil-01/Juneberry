@@ -37,6 +37,7 @@ import { useDispatch, useSelector } from "react-redux";
 // import { logout } from "../../../redux/auth/action";
 import logo from "../../assets/JuneBerry2.png";
 import profile from "../../assets/profile.jpg";
+import { logout } from "../../redux/authReducer/action";
 const LinkItems = [
   { name: "DashBoard", icon: FiHome, path: "/admin/dashboard" },
   { name: "Products", icon: BsBag, path: "/admin/products" },
@@ -272,13 +273,14 @@ const MobileNav = ({ onOpen, ...rest }) => {
                   toast({
                     title: "Logged Out Successfully",
                     position: "top",
-                    description: "Redirecting to User Side....",
+                    description: "Redirecting to Home Page....",
                     status: "success",
                     duration: 3000,
                     isClosable: true,
                   });
-                  //   dispatch(logout);
-                  navigate("/");
+                  dispatch(logout).then(() => {
+                    navigate("/");
+                  });
                 }}
               >
                 Sign out

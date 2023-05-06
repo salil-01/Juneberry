@@ -36,7 +36,7 @@ export const reducer = (state = initialState, { type, payload }) => {
     case LOGIN_SUCCESS: {
       setData("token", payload.token);
       setData("auth", true);
-      setData("adminAuth", true);
+      setData("adminAuth", payload.admin ? true : false);
       setData("name", payload.user || payload.admin);
       return {
         ...state,
