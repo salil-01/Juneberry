@@ -126,7 +126,7 @@ export const Users = () => {
               <Spinner marginLeft={"30vw"} size={"xl"} />
             ) : (
               data?.map((element) => (
-                <Tr>
+                <Tr key={element._id}>
                   <Td backgroundColor={"white"}>
                     <Center>{element._id}</Center>
                   </Td>

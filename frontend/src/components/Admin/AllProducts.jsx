@@ -114,9 +114,9 @@ export const AllProducts = () => {
       {productData.isLoading ? (
         <Spinner size={"xl"} marginTop={"20vh"} />
       ) : (
-        <Table size="sm" border={"1px solid red"}>
+        <Table variant={"striped"} bg={"#FFF3E2"} size="sm" >
           <Thead>
-            <Tr border={"1px solid red"}>
+            <Tr >
               <Th>
                 <SearchField field={"Name"} onSearch={onSearch} />
               </Th>

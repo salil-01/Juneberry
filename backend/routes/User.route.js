@@ -16,7 +16,7 @@ userRouter.get("/", auth, async (req, res) => {
       res.status(400).send(error);
     }
   } else {
-    res.status(200).send({ msg: "You are not Authorized" });
+    res.status(401).send({ msg: "You are not Authorized" });
   }
 });
 // /* ------ Get one  User ------ */
@@ -28,7 +28,7 @@ userRouter.get("/:id", auth, async (req, res) => {
   if (data.role === "admin" || data.authorID == user._id) {
     res.status(200).send({ user: user });
   } else {
-    res.status(200).send({ msg: "You are not Authorized" });
+    res.status(401).send({ msg: "You are not Authorized" });
   }
 });
 
@@ -65,7 +65,7 @@ userRouter.delete("/delete/:id", auth, async (req, res) => {
       res.status(200).send(error);
     }
   } else {
-    res.status(200).send({ msg: "You are not Authorized" });
+    res.status(401).send({ msg: "You are not Authorized" });
   }
 });
 /* ------ Exports ------ */

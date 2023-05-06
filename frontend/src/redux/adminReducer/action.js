@@ -51,9 +51,9 @@ export const addProductShoes = (productData, token) => async (dispatch) => {
 };
 
 //getting data from server and populating on dom
-export const getProduct = (category) => (dispatch) => {
+export const getProduct = (category) => async (dispatch) => {
   dispatch({ type: PRODUCT_REQUEST });
-  axios
+  await axios
     .get(`${process.env.REACT_APP_BACKEND_URL}/${category}`)
     .then((res) => {
       dispatch({ type: GET_PRODUCT_SUCCESS, payload: res.data });
@@ -107,12 +107,18 @@ export const deleteProduct = (id, category, token) => async (dispatch) => {
 };
 
 //get orders
-export const getOrders = (dispatch) => {
+export const getOrders = (token) => async (dispatch) => {
   dispatch({ type: PRODUCT_REQUEST });
-  axios
-    .get(`${process.env.REACT_APP_BACKEND_URL}/order`)
+  await axios
+    .get(`${process.env.REACT_APP_BACKEND_URL}/order`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
     .then((res) => {
-      dispatch({ type: GET_ORDER_SUCCESS, payload: res.data });
+      // console.log(res);
+      dispatch({ type: GET_ORDER_SUCCESS, payload: res.data.orders });
     })
     .catch(() => {
       dispatch({ type: PRODUCT_FAILURE });
@@ -120,16 +126,28 @@ export const getOrders = (dispatch) => {
 };
 
 //change order status
-export const changeOrderStatus = (id, value) => async (dispatch) => {
-  dispatch({ type: PRODUCT_REQUEST });
-  await axios
-    .patch(`${process.env.REACT_APP_BACKEND_URL}/order/${id}`, {
-      status: value,
-    })
-    .then(() => {
-      dispatch({ type: PATCH_ORDER_SUCCESS });
-    })
-    .catch(() => {
-      dispatch({ type: PRODUCT_FAILURE });
-    });
-};
+export const changeOrderStatus =
+   (id, value, token) => async (dispatch) => {
+    dispatch({ type: PRODUCT_REQUEST });
+    await axios
+      .patch(
+        `${process.env.REACT_APP_BACKEND_URL}/order/edit/${id}`,
+        {
+          status: value,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        console.log(res);
+        dispatch({ type: PATCH_ORDER_SUCCESS });
+      })
+      .catch((error) => {
+        console.log(error);
+        dispatch({ type: PRODUCT_FAILURE });
+      });
+  };

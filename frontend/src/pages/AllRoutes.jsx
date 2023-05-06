@@ -1,7 +1,9 @@
 import { Route, Routes } from "react-router-dom";
 import { AddProduct } from "../components/Admin/AddProduct";
 import { AllProducts } from "../components/Admin/AllProducts";
+import { Dashboard } from "../components/Admin/Dashboard";
 import { EditProduct } from "../components/Admin/EditProduct";
+import { AllOrders } from "../components/Admin/Orders";
 import Sidebar from "../components/Admin/Sidebar";
 import { Users } from "../components/Admin/Users";
 import { UserPrivateRoute } from "../components/UserPrivateRoute";
@@ -28,6 +30,14 @@ export const AllRoutes = () => {
       <Route path="/bag" element={<Bag />} />
       <Route path="/wishlist" element={<WishList />} />
       <Route path="/admin" element={<AdminPage />} />
+      <Route
+        path="/admin/dashboard"
+        element={
+          <Sidebar>
+            <Dashboard />
+          </Sidebar>
+        }
+      />
       <Route
         path="/admin/products"
         element={
@@ -57,6 +67,14 @@ export const AllRoutes = () => {
         element={
           <Sidebar>
             <Users />
+          </Sidebar>
+        }
+      />
+      <Route
+        path="/admin/orders"
+        element={
+          <Sidebar>
+            <AllOrders />
           </Sidebar>
         }
       />

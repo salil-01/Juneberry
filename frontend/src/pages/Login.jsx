@@ -24,14 +24,16 @@ import {
 import { CloseIcon, ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../redux/authReducer/action";
+import { Signup } from "./Signup";
 const inital = {
   email: "",
   password: "",
 };
-export const Login = ({text}) => {
+export const Login = ({text,color,colorhover}) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [formData, setFormData] = useState(inital);
   const [showPassword, setShowPassword] = useState(false);
+  const [isLoading,setisLoading] = useState(false);
   const toast = useToast();
   const dispatch = useDispatch();
   let authData = useSelector((store) => {
@@ -40,8 +42,10 @@ export const Login = ({text}) => {
 //   console.log(authData.token);
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setisLoading(true)
     await dispatch(login(formData))
       .then(() => {
+        setisLoading(false);
         toast({
           position: "top",
           title: `Login Successfull`,
@@ -49,8 +53,10 @@ export const Login = ({text}) => {
           isClosable: true,
           duration: 2000,
         });
+        onClose();
       })
       .catch((error) => {
+        console.log(error);
         toast({
           position: "top",
           title: `Wrong Credentials`,
@@ -58,8 +64,9 @@ export const Login = ({text}) => {
           isClosable: true,
           duration: 2000,
         });
+        setisLoading(false);
       });
-    onClose();
+    
   };
 
   const handleChange = (event) => {
@@ -72,7 +79,7 @@ export const Login = ({text}) => {
 
   return (
     <>
-      <Button onClick={onOpen}>{text}</Button>
+      <Text variant={"link"} color={color} _hover={{color:colorhover,textDecoration:"underline",cursor:"pointer"}} onClick={onOpen}>{text}</Text>
       <Modal size={"lg"} isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent borderRadius={"0px"}>
@@ -86,6 +93,7 @@ export const Login = ({text}) => {
             Sign In
           </ModalHeader>
 
+          <form onSubmit={handleSubmit}>
           <ModalBody>
             <Text textAlign="center" fontSize={"0.8rem"} mb={2}>
               Sign in so you can save items to your wishlists, track your
@@ -126,25 +134,49 @@ export const Login = ({text}) => {
                 </InputGroup>
               </FormControl>
             </Stack>
+            <Stack spacing={10} pt={2} margin={"30px auto 0px"}>
+                {isLoading ? (
+                  <Button
+                    isLoading
+                    type='submit'
+                    loadingText="Logging In..."
+                    size="lg"
+                    borderRadius="0px"
+                    border={"1px solid rgb(75,86,102)"}
+                    color={"white"}
+                    bg="rgb(75,86,102)"
+                    _hover={{
+                      bg: "white",
+                      color: "rgb(75,86,102)",
+                    }}
+                    margin={"auto"}
+                    width={"100%"}
+                  >
+                    NEXT
+                  </Button>
+                ) : (
+                  <Button
+                    type="submit"
+                    size="lg"
+                    borderRadius="0px"
+                    border={"1px solid rgb(75,86,102)"}
+                    color={"white"}
+                    bg="rgb(75,86,102)"
+                    _hover={{
+                      bg: "white",
+                      color: "rgb(75,86,102)",
+                    }}
+                    width={"100%"}
+                    margin={"auto"}
+                  >
+                    NEXT
+                  </Button>
+                )}
+              </Stack>
           </ModalBody>
+          </form>
           <ModalFooter>
             <VStack width={"100%"} margin={"20px auto"} gap={"10px"}>
-              <Button
-                type="submit"
-                bg={"rgb(75,86,102)"}
-                color={"white"}
-                mr={3}
-                onClick={handleSubmit}
-                width={"100%"}
-                borderRadius={"0px"}
-                _hover={{
-                  bg: "white",
-                  color: "rgb(75,86,102)",
-                  border: "1px solid rgb(75,86,102)",
-                }}
-              >
-                NEXT
-              </Button>
               <Text textAlign="center" fontSize={"1.4rem"}>
                 Sign Up
               </Text>
@@ -152,20 +184,15 @@ export const Login = ({text}) => {
                 Welcome! It's quick and easy to set up an account
               </Text>
               <Button
-                type="submit"
                 bg={"white"}
-                color={"rgb(75,86,102)"}
                 border="1px solid rgb(75,86,102)"
                 mr={3}
                 onClick={handleSubmit}
                 width={"100%"}
                 borderRadius={"0px"}
-                _hover={{
-                  bg: "rgb(75,86,102)",
-                  color: "white",
-                }}
+              
               >
-                CREATE AN ACCOUNT
+                <Signup text={"CREATE AN ACCOUNT"} color={"rgb(75,86,102)"}/>
               </Button>
             </VStack>
           </ModalFooter>
