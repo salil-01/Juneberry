@@ -4,30 +4,28 @@ import { useSelector } from "react-redux";
 import { CheckIcon, TimeIcon } from "@chakra-ui/icons";
 import {
   Table,
-  Thead,
   Tbody,
-  Tr,
-  Th,
-  Td,
   Box,
   Button,
   Badge,
   Flex,
   Text,
   Image,
-  useToast,
-  Spinner,
-  SimpleGrid,
-  VStack,
+  Stack,
+  Skeleton,
+  Heading,
 } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 
 export const UserOrder = () => {
   const [order, setOrder] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
   const authData = useSelector((store) => {
     return store.authReducer;
   });
   useEffect(() => {
+    setIsLoading(true);
     axios
       .get(`${process.env.REACT_APP_BACKEND_URL}/order/user`, {
         headers: {
@@ -36,21 +34,55 @@ export const UserOrder = () => {
         },
       })
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         setOrder(res.data.msg);
+        setIsLoading(false);
       })
       .catch((error) => {
         console.log(error);
+        setIsLoading(false);
       });
     // console.log(res.data);
   }, []);
   return (
-    <Box maxWidth="100%" backgroundColor={"white"} overflowX="auto">
+    <Box
+      maxWidth="100%"
+      marginTop={"20px"}
+      backgroundColor={"white"}
+      overflowX="auto"
+    >
       <Table variant="striped">
         <Tbody textTransform={"capitalize"}>
           {isLoading ? (
-            <Box>
-              <Spinner size={"md"} />
+            [...Array(5).keys()].map((item) => {
+              return (
+                <Stack key={item} width={"80%"} margin={"20px auto"}>
+                  <Skeleton
+                    height={{ base: "260", md: "260" }}
+                    width={{ base: "90%", md: "70%", lg: "90%" }}
+                    margin={"auto"}
+                    borderRadius={"sm"}
+                  />
+                </Stack>
+              );
+            })
+          ) : order.length === 0 ? (
+            <Box mt={"40vh"}>
+              <Heading fontSize={"1.5rem"}>No Order History Found</Heading>
+              <Text>
+                Head Over to{" "}
+                <Button
+                  _hover={{
+                    textDecoration: "underline",
+                  }}
+                  variant={"link"}
+                  color={"black"}
+                  onClick = {()=>navigate("/products")}
+                >
+                  Products
+                </Button>{" "}
+                to get some...
+              </Text>
             </Box>
           ) : (
             order?.map((item) => {
@@ -62,7 +94,9 @@ export const UserOrder = () => {
                   p={{ base: "0", md: "1rem" }}
                   bg={"#F5EBEB"}
                   borderRadius={"5px"}
-                  boxShadow={"rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;"}
+                  boxShadow={
+                    "rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;"
+                  }
                 >
                   <Badge fontSize={"1rem"} textAlign={"left"}>
                     {" "}
