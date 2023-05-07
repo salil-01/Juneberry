@@ -53,6 +53,7 @@ export const UserOrder = () => {
     >
       <Table variant="striped">
         <Tbody textTransform={"capitalize"}>
+          {/* //Skeleton */}
           {isLoading ? (
             [...Array(5).keys()].map((item) => {
               return (
