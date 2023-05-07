@@ -1,11 +1,11 @@
-import { Box, Button, Flex, Heading, SimpleGrid, Text } from "@chakra-ui/react"
+import { Box, Button, Flex, Heading, SimpleGrid } from "@chakra-ui/react"
 import "../styles/productpage.css"
 import Productsidebar from "../components/Productsidebar"
 import { useDispatch, useSelector } from "react-redux"
 import { useEffect, useState } from "react"
 import { getDressProduct } from "../redux/productReducer/action"
 import { ChevronRightIcon, ChevronLeftIcon } from "@chakra-ui/icons"
-import { useLocation, useSearchParams } from "react-router-dom"
+import { Link, useLocation, useSearchParams } from "react-router-dom"
 
 
 export const ProductPage = () => {
@@ -89,13 +89,15 @@ export const ProductPage = () => {
                         </Flex>
                     </Flex>
                     <Box className="productscontainer2">
-                        {products.map((el) => {
-                            return <Box key={el._id} style={{ color: "gray", textAlign: "left", padding: "3%" }}>
-                                <img src={el.img} alt={el.name} />
-                                <p>{el.name}</p>
-                                <span>${el.price}</span>
-                                <p>🟢🔵(2colors)</p>
-                            </Box>
+                        {products?.map((el) => {
+                            return <Link to={`/singleproduct/${el._id}`}>
+                                <Box key={el._id} style={{ color: "gray", textAlign: "left", padding: "3%" }}>
+                                    <img src={el.img} alt={el.name} />
+                                    <p>{el.name}</p>
+                                    <span>${el.price}</span>
+                                    <p>🟢🔵(2colors)</p>
+                                </Box>
+                            </Link>
                         })}
                     </Box>
                 </Box>
