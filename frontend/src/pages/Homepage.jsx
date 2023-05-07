@@ -25,7 +25,14 @@ export const Homepage = () => {
 
   return (
     <Box padding={7}>
-      <Grid gridTemplateColumns={"repeat(4, 1fr)"} gap={2}>
+      <Grid
+        gridTemplateColumns={{
+          base: "repeat(1,1fr)",
+          md: "repeat(2,1fr)",
+          lg: "repeat(4,1fr)",
+        }}
+        gap={2}
+      >
         <Img
           width={"100%"}
           src="https://images.ctfassets.net/5de70he6op10/6cJlIZxdaH7ca8byJOWbO8/2d0d3645b510486977ee3e5a96fe2a88/495283951-ls_m0_banner_c.jpg?w=630&q=80&fm=webp"
@@ -43,17 +50,25 @@ export const Homepage = () => {
           src="https://images.ctfassets.net/5de70he6op10/5cOu4Ui5611HHArvXrQNdV/6de14ad2beb96aa703169fca97ff9e61/495283950-ls_m0_banner_b.jpg?w=630&q=80&fm=webp"
         />
       </Grid>
-      <Flex gridTemplateColumns={"repeat(2, 1fr)"} gap={4} mt={10}>
+      <Flex direction={{ base: "column", md: "row" }} gap={4} mt={10}>
         <Img
-          width={"66.33%"}
+          width={{ base: "100%", md: "66.33%", lg: "66.33%" }}
           src="https://images.ctfassets.net/5de70he6op10/4wVzbSpI6ID8KcGVGU4YEg/0983e72b6e8fa8aec4bd1b76b018c683/495283964-ls_m1a.jpg?w=1760&q=80&fm=webp"
         />
         <Img
-          width={"33%"}
+          width={{ base: "100%", md: "33%", lg: "33%" }}
           src="https://images.ctfassets.net/5de70he6op10/535xsTiyC4DHGuvowscdeA/b0f5c8f7d2b6ec317ad2739a489f8601/495283970-ls_m1b.jpg?w=856&q=80&fm=webp"
         />
       </Flex>
-      <Grid gridTemplateColumns={"repeat(3, 1fr)"} gap={4} mt={5}>
+      <Grid
+        gridTemplateColumns={{
+          base: "repeat(1,1fr)",
+          md: "repeat(3,1fr)",
+          lg: "repeat(3, 1fr)",
+        }}
+        gap={4}
+        mt={5}
+      >
         <Img src="https://images.ctfassets.net/5de70he6op10/4YhzXIXeypS6qhwJwE1UmJ/aa8c79f62ee1de6392c60aee753a3fc9/495283974-ls_m2a.jpg?w=856&q=80&fm=webp" />
         <Img src="https://images.ctfassets.net/5de70he6op10/7iqzbl2SU2BRRAKUn7bP3U/dacb672e6989fd6ef8c80ec49b4d9e8b/495283977-ls_m2b.jpg?w=856&q=80&fm=webp" />
         <Img src="https://images.ctfassets.net/5de70he6op10/5zq7dWhFEtMLPLDB57Ux9d/69811448499d79bc2d1a5b84f684a8f5/495283980-ls_m2c.jpg?w=856&q=80&fm=webp" />
@@ -77,7 +92,8 @@ export const Homepage = () => {
         infinite={true}
         swipeable={true}
         responsive={responsive}
-        // autoPlay={true}
+        autoPlay={true}
+        arrows={false}
       >
         <Box m={5}>
           <Img
@@ -299,7 +315,15 @@ export const Homepage = () => {
         <Divider borderWidth={"10"} borderColor={"blackAlpha.800"} mt={3} />
       </Box>
 
-      <Grid gridTemplateColumns={"repeat(3, 1fr)"} gap={4} mt={5}>
+      <Grid
+        gridTemplateColumns={{
+          base: "repeat(1,1fr)",
+          md: "repeat(2,1fr)",
+          lg: "repeat(3,1fr)",
+        }}
+        gap={4}
+        mt={5}
+      >
         <Box>
           <Img src="https://images.ctfassets.net/5de70he6op10/795jY9vsHgllpp6tBIpNlt/54269e8671d86ca24da2b49a10257fba/495284000-mte_1.jpg?w=856&q=80&fm=webp" />
           <Text mt={3} fontSize={"xl"} textAlign={"left"} fontWeight={400}>

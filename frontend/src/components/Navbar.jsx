@@ -5,7 +5,13 @@ import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
 export const Navbar = () => {
   return (
     <Box>
-      <Flex bg={"#B43C3C"} color={"white"} justify={"space-evenly"} padding={3}>
+      <Flex
+        display={{ base: "none", md: "flex", lg: "flex" }}
+        bg={"#B43C3C"}
+        color={"white"}
+        justify={"space-evenly"}
+        padding={3}
+      >
         <Text fontSize={13}>
           the skies are blue and the dresses are darling
         </Text>
@@ -17,7 +23,11 @@ export const Navbar = () => {
       <Box>
         <Flex
           alignItems={"center"}
-          justifyContent={"space-between"}
+          justifyContent={{
+            base: "space-evenly",
+            md: "space-evenly",
+            lg: "space-between",
+          }}
           margin={"auto"}
           padding={5}
           borderBottom={"1px solid"}
@@ -31,10 +41,14 @@ export const Navbar = () => {
             justifyContent={"space-between"}
             width={"30%"}
           >
-            <Input placeholder="Search Anthropologie" width={"47%"} />
+            <Input
+              display={{ base: "none", md: "none", lg: "block" }}
+              placeholder="Search Anthropologie"
+              width={"47%"}
+            />
             <ShoppingBagOutlinedIcon fontSize="medium" />
             <Text color={"teal"} fontWeight={500} cursor={"pointer"}>
-              SignIn / SignUp
+              SignIn
             </Text>
           </Flex>
         </Flex>
@@ -117,6 +131,7 @@ export const Navbar = () => {
           <Text
             color={"blackAlpha.900"}
             paddingBottom={5}
+            display={{ base: "none", md: "none", lg: "block" }}
             cursor={"pointer"}
             fontWeight={"600"}
             _hover={{
@@ -132,6 +147,7 @@ export const Navbar = () => {
             color={"blackAlpha.900"}
             paddingBottom={5}
             cursor={"pointer"}
+            display={{ base: "none", md: "none", lg: "block" }}
             fontWeight={"600"}
             _hover={{
               color: "teal",
@@ -145,6 +161,7 @@ export const Navbar = () => {
           <Text
             color={"blackAlpha.900"}
             paddingBottom={5}
+            display={{ base: "none", md: "none", lg: "block" }}
             cursor={"pointer"}
             fontWeight={"600"}
             _hover={{
