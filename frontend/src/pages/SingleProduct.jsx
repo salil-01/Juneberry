@@ -9,7 +9,7 @@ import {
     AccordionPanel,
     AccordionIcon,
 } from '@chakra-ui/react'
-import Imgswiper from "../components/Singleproduct/Swiper"
+
 
 export const SingleProductPage = () => {
     // const [product, setProduct] = useState({})
