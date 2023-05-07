@@ -13,13 +13,15 @@ import {
   Img,
 } from "@chakra-ui/react";
 
-// Footer added
-
 export const Footer = () => {
   return (
     <Box mt={5}>
       <Box bg={"blackAlpha.50"} padding={5}>
-        <Flex justify={"space-between"}>
+        <Flex
+          justify={"space-between"}
+          gap={10}
+          direction={{ base: "column", md: "column", lg: "row" }}
+        >
           <Box textAlign={"left"} marginLeft={0}>
             <Text fontSize={"xl"}>Sign Up for Email</Text>
             <Text
@@ -37,12 +39,11 @@ export const Footer = () => {
             <Text textAlign={"left"} fontWeight={400} fontSize={"lg"} mb={3}>
               Email Address*
             </Text>
-            <Flex gap={5}>
+            <Flex gap={5} direction={{ base: "column", md: "row", lg: "row" }}>
               <Input
                 placeholder="Enter your email address"
                 variant={"filled"}
                 bg={"white"}
-                width={400}
                 borderRadius={0}
                 borderWidth={1}
                 borderStyle={"solid"}
@@ -67,7 +68,11 @@ export const Footer = () => {
         <Box mt={5}>
           <Grid
             gap={10}
-            templateColumns={{ md: "repeat(2,1fr)", lg: "repeat(4,1fr)" }}
+            templateColumns={{
+              base: "repeat(2,1fr)",
+              md: "repeat(4,1fr)",
+              lg: "repeat(4,1fr)",
+            }}
           >
             <UnorderedList className="list-items" textAlign={"left"}>
               <Text mb={2} fontSize={"md"} fontWeight={400}>
