@@ -19,6 +19,8 @@ import {
   MenuList,
   Input,
   Image,
+  Img,
+  Avatar,
 } from "@chakra-ui/react";
 import { FiHome, FiMenu, FiBell, FiChevronDown } from "react-icons/fi";
 import { IoMdSettings } from "react-icons/io";
@@ -34,6 +36,8 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 // import { logout } from "../../../redux/auth/action";
 import logo from "../../assets/JuneBerry2.png";
+import profile from "../../assets/profile.jpg";
+import { logout } from "../../redux/authReducer/action";
 const LinkItems = [
   { name: "DashBoard", icon: FiHome, path: "/admin/dashboard" },
   { name: "Products", icon: BsBag, path: "/admin/products" },
@@ -102,6 +106,7 @@ const SidebarContent = ({ onClose, ...rest }) => {
           _hover={{
             cursor: "pointer",
           }}
+          // border={}
           src={logo}
           alt="admin_logo"
           width={"150px"}
@@ -215,8 +220,9 @@ const MobileNav = ({ onOpen, ...rest }) => {
               _focus={{ boxShadow: "none" }}
             >
               <HStack spacing="20px">
-                {/* <Avatar size={"lg"} src="zenitsu.png" /> */}
-                <img src="profile.jpg" width={"60px"} alt="profile_img" />
+                <Avatar size={"lg"} />
+
+                {/* <Img src={profile}/> */}
 
                 <Box padding={"5px"} display={{ base: "none", md: "block" }}>
                   <Text fontSize="xs" color="gray.600">
@@ -267,13 +273,14 @@ const MobileNav = ({ onOpen, ...rest }) => {
                   toast({
                     title: "Logged Out Successfully",
                     position: "top",
-                    description: "Redirecting to User Side....",
+                    description: "Redirecting to Home Page....",
                     status: "success",
                     duration: 3000,
                     isClosable: true,
                   });
-                  //   dispatch(logout);
-                  navigate("/");
+                  dispatch(logout).then(() => {
+                    navigate("/");
+                  });
                 }}
               >
                 Sign out

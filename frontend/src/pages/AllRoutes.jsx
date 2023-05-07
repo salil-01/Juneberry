@@ -15,6 +15,7 @@ import { NotFound } from "./NotFound";
 import { ProductPage } from "./ProductPage";
 import { Signup } from "./Signup";
 import { SingleProductPage } from "./SingleProduct";
+import { UserOrder } from "./UserOrder";
 import { WishList } from "./WishList";
 
 export const AllRoutes = () => {
@@ -28,6 +29,7 @@ export const AllRoutes = () => {
       <Route path="/products" element={<ProductPage />} />
       <Route path="/singleproduct/:id" element={<SingleProductPage />} />
       <Route path="/bag" element={<Bag />} />
+      <Route path="/orders" element={<UserOrder />} />
       <Route path="/wishlist" element={<WishList />} />
       <Route path="/admin" element={<AdminPage />} />
       <Route
