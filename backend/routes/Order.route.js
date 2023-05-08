@@ -37,9 +37,15 @@ orderRouter.get("/user", auth, async (req, res) => {
 
 /* ------ Create an Order ------ */
 orderRouter.post("/create", auth, async (req, res) => {
+  let data = req.body.map((element) => {
+    return {
+      ...element,
+      author: req.body.author,
+      authorID: req.body.authorID,
+    };
+  });
   try {
-    const order = new OrderModel(req.body);
-    await order.save();
+    await OrderModel.insertMany(data);
     res.status(200).send({ msg: "New Order has been added" });
   } catch (error) {
     res.status(400).send({ error: error.message });

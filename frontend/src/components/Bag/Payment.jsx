@@ -10,7 +10,6 @@ import {
   Stack,
   useDisclosure,
   Button,
-  DrawerCloseButton,
   Text,
   Input,
   Image,
@@ -22,19 +21,17 @@ import {
   ModalContent,
   ModalOverlay,
   ModalCloseButton,
+  Radio,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { postOrder, updateBag } from "../../redux/bagReducer/action";
-import { useEffect } from "react";
-// let cartdata = JSON.parse(localStorage.getItem("cartdata")) || [];
+import { postOrder } from "../../redux/bagReducer/action";
 
 const CardDetail = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef();
-  //   const {cartCount,setCartCount,setcartData} = useContext(AuthContext)
   const [cardNumber, setCardnumber] = useState("");
   const [cardname, setCardname] = useState("");
   const [month, setMonth] = useState("");
@@ -42,49 +39,54 @@ const CardDetail = () => {
   const [cvv, setCvv] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  //redux store
   const bagData = useSelector((store) => {
     return store.bagReducer.bag;
   });
+  // console.log(bagData);
   const addressData = useSelector((store) => {
     return store.bagReducer.address;
   });
+  const token = useSelector((store) => {
+    return store.authReducer.token;
+  });
   const toast = useToast();
   let getDate = () => {
-    let date = Date.now();
-    let d = new Date(date);
-    let ds = d.toLocaleDateString();
-    return ds;
+    let d = new Date();
+    let val = d.toLocaleString();
+    return val;
   };
   const handleSubmit = () => {
-    // toast({
-    //   position: "top",
-    //   title: "Processing Your Order...",
-    //   status: "success",
-    //   duration: 3000,
-    //   isClosable: true,
-    // });
-    // let orderData = {
-    //   name: addressData.name,
-    //   created: getDate(),
-    //   status: "pending",
-    //   city: addressData.city,
-    //   title: bagData[0].title,
-    //   price: bagData[0].price,
-    //   quantity: bagData[0].quantity,
-    // };
-    // setTimeout(() => {
-    //   dispatch(postOrder(orderData)).then(() => {
-    //     toast({
-    //       position: "top",
-    //       title: "Order Placed Successfully ✔️",
-    //       status: "success",
-    //       duration: 9000,
-    //       isClosable: true,
-    //     });
-    //     dispatch(updateBag([]));
-    //     navigate("/");
-    //   });
-    // }, 3000);
+    toast({
+      position: "top",
+      title: "Processing Your Order...",
+      status: "success",
+      duration: 2000,
+      isClosable: true,
+    });
+    let orderData = bagData?.map((element) => {
+      return {
+        ...element,
+        created: getDate(),
+        status: "pending",
+        city: addressData.city,
+      };
+    });
+    // console.log(orderData);
+    setTimeout(() => {
+      dispatch(postOrder(orderData, token)).then(() => {
+        toast({
+          position: "top",
+          title: "Order Placed Successfully ✔️",
+          status: "success",
+          duration: 2000,
+          isClosable: true,
+        });
+        // dispatch(updateBag([]));
+        // navigate("/");
+      });
+    }, 2000);
   };
   return (
     <div>
@@ -98,7 +100,7 @@ const CardDetail = () => {
           _hover={{ bg: "#3b475b", color: "white" }}
           onClick={onOpen}
         >
-           PROCEED TO CHECKOUT
+          PROCEED TO CHECKOUT
         </Button>
         <Modal
           isOpen={isOpen}
@@ -137,7 +139,7 @@ const CardDetail = () => {
                             />{" "}
                           </Box>
                           <Box pr={1} mt={5}>
-                            CREDIT/DEBIT CARDS{" "}
+                            CREDIT/DEBIT CARD{" "}
                           </Box>
                         </Box>
                         <AccordionIcon mt={5} />
@@ -247,6 +249,65 @@ const CardDetail = () => {
                                 year === "" ||
                                 cvv === ""
                               }
+                            >
+                              Place Order
+                            </Button>
+                          </Box>
+                        </Stack>
+                      </Box>
+                    </AccordionPanel>
+                  </AccordionItem>
+                </Accordion>
+                <Accordion allowMultiple>
+                  <AccordionItem>
+                    <h2>
+                      <AccordionButton>
+                        <Box
+                          as="span"
+                          mt={5}
+                          flex="1"
+                          textAlign="left"
+                          display="flex"
+                        >
+                          <Box pr={2} mt={5}>
+                            <Image
+                              w="20px"
+                              h="20px"
+                              src="https://tse1.mm.bing.net/th?id=OIP.frkMALy3NuQXFoJ1hSlYHwAAAA&pid=Api&P=0"
+                            />
+                          </Box>{" "}
+                          <Box pr={1} mt={5}>
+                            {" "}
+                            CASH ON DELIEVERY
+                          </Box>
+                        </Box>
+                        <AccordionIcon mt={5} />
+                      </AccordionButton>
+                    </h2>
+                    <AccordionPanel pb={4}>
+                      <Box>
+                        <Stack>
+                          <Box pl={4}>
+                            <Radio
+                              size="md"
+                              name="1"
+                              colorScheme="green"
+                              defaultChecked={true}
+                            >
+                              Pay on Delievery
+                            </Radio>
+                          </Box>
+                          <Box>
+                            <Button
+                              mt={"20px"}
+                              onClick={handleSubmit}
+                              borderRadius={"0px"}
+                              border={"1px solid green"}
+                              color="green"
+                              _hover={{
+                                color: "white",
+                                bg: "green",
+                              }}
                             >
                               Place Order
                             </Button>

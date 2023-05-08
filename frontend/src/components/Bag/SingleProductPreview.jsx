@@ -26,7 +26,7 @@ export const SingleProductPreview = ({ setTotal, setPrice }) => {
   const handleChange = (e, id) => {
     let val = +e.target.value;
     const updatedData = bagData.map((item) =>
-      item.id === id ? { ...item, quantity: +val } : item
+      item._id === id ? { ...item, quantity: +val } : item
     );
     dispatch(updateBag(updatedData));
   };
@@ -34,7 +34,7 @@ export const SingleProductPreview = ({ setTotal, setPrice }) => {
   //delete functionality
   const removeitem = (id) => {
     const updatedData = bagData.filter((el) => {
-      return el.id !== id;
+      return el._id !== id;
     });
     dispatch(updateBag(updatedData));
     // window.location.reload();
@@ -109,7 +109,7 @@ export const SingleProductPreview = ({ setTotal, setPrice }) => {
                         w={"80px"}
                         borderRadius={0}
                         border={"1px solid gray"}
-                        onChange={(e) => handleChange(e, element.id)}
+                        onChange={(e) => handleChange(e, element._id)}
                         value={element.quantity}
                       >
                         <option value="1">1</option>
@@ -125,7 +125,7 @@ export const SingleProductPreview = ({ setTotal, setPrice }) => {
                         colorScheme={"black"}
                         fontSize={"14px"}
                         onClick={() => {
-                          removeitem(element.id);
+                          removeitem(element._id);
                         }}
                       >
                         <DeleteIcon />
