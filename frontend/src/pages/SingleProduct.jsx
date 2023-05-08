@@ -154,12 +154,11 @@ export const SingleProductPage = () => {
                     </Flex>
                     <Flex className="buttoncontainer">
                       <Button
-                        backgroundColor={"white"}
-                        border={"1px solid #4b5666"}
-                        color={"#4b5666"}
+                        borderRadius={"0px"}
+                        backgroundColor={"#4b5666"}
+                        color="white"
                         _hover={{
-                          color: "white",
-                          bg: "#4b5666",
+                          bg: "#3c4552",
                         }}
                         isDisabled={wish}
                         onClick={handleWishlist}
@@ -167,12 +166,11 @@ export const SingleProductPage = () => {
                         Add To Cart
                       </Button>
                       <Button
-                        backgroundColor={"white"}
-                        border={"1px solid #4b5666"}
-                        color={"#4b5666"}
+                        borderRadius={"0px"}
+                        backgroundColor={"#4b5666"}
+                        color="white"
                         _hover={{
-                          color: "white",
-                          bg: "#4b5666",
+                          bg: "#3c4552",
                         }}
                         isDisabled={bag}
                         onClick={handleBag}
