@@ -22,7 +22,7 @@ export const SingleProductPreview = ({ setTotal, setPrice }) => {
     return store.bagReducer.bag;
   });
 
-  console.log(bagData);
+  // console.log(bagData);
   const handleChange = (e, id) => {
     let val = +e.target.value;
     const updatedData = bagData.map((item) =>
@@ -110,6 +110,7 @@ export const SingleProductPreview = ({ setTotal, setPrice }) => {
                         borderRadius={0}
                         border={"1px solid gray"}
                         onChange={(e) => handleChange(e, element.id)}
+                        value={element.quantity}
                       >
                         <option value="1">1</option>
                         <option value="2">2</option>

@@ -30,6 +30,7 @@ import { CheckIcon } from "@chakra-ui/icons";
 import { useDispatch } from "react-redux";
 import { addAddress } from "../redux/bagReducer/action";
 import { SingleProductPreview } from "../components/Bag/SingleProductPreview";
+import { getData } from "../utilis/localStorage";
 //   import Navbar from "../components/Homepage/Navbar";
 //   import Footer from "../components/Homepage/Footer";
 
@@ -44,9 +45,9 @@ export const Bag = () => {
   const dispatch = useDispatch();
   const [total, setTotal] = useState(0);
   const [price, setPrice] = useState(0);
-  const [formData, setFormData] = useState(initialData);
+  const [formData, setFormData] = useState(getData("address")|| initialData);
   const { isOpen, onOpen, onClose } = useDisclosure();
-
+  // console.log(price,total);
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -90,13 +91,14 @@ export const Bag = () => {
           >
             <Button
               onClick={onOpen}
-              fontSize="1rem"
-              ml={"1%"}
+              fontSize="0.9rem"
+              // ml={"1%"}
               fontWeight={"400"}
               border={"1px solid #1d2b4f"}
               colorScheme="white"
               borderRadius={"0%"}
               color={"#1d2b4f"}
+              // padding={"5px"}
               _hover={{
                 color: "white",
                 backgroundColor: "#1d2b4f",
@@ -104,67 +106,68 @@ export const Bag = () => {
             >
               ADD NEW SHIPPING ADDRESS
             </Button>
-            <Box width={"60%"} padding={"50px"} boxShadow={"md"}>
-              <Center mb={"10px"}>
-                <Text as={"h3"} fontWeight={"bold"}>
-                  Current Address
-                </Text>
-              </Center>
-              {formData.name ? (
-                <SimpleGrid gridTemplateColumns={"repeat(3,1fr)"}>
-                  <Text textAlign={"left"}>Name</Text>
-                  <Text textAlign={"center"}>:</Text>
-                  <Text textAlign={"right"}>{formData.name}</Text>
-                </SimpleGrid>
-              ) : (
-                ""
-              )}
-              {formData.mobile ? (
-                <SimpleGrid gridTemplateColumns={"repeat(3,1fr)"}>
-                  <Text textAlign={"left"}>Mobile</Text>
-                  <Text textAlign={"center"}>:</Text>
-                  <Text textAlign={"right"}>{formData.mobile}</Text>
-                </SimpleGrid>
-              ) : (
-                ""
-              )}
-              {formData.pincode ? (
-                <SimpleGrid gridTemplateColumns={"repeat(3,1fr)"}>
-                  <Text textAlign={"left"}>Pincode</Text>
-                  <Text textAlign={"center"}>:</Text>
-                  <Text textAlign={"right"}>{formData.pincode}</Text>
-                </SimpleGrid>
-              ) : (
-                ""
-              )}
-              {formData.city ? (
-                <SimpleGrid gridTemplateColumns={"repeat(3,1fr)"}>
-                  <Text textAlign={"left"}>City</Text>
-                  <Text textAlign={"center"}>:</Text>
-                  <Text textAlign={"right"}>{formData.city}</Text>
-                </SimpleGrid>
-              ) : (
-                ""
-              )}
-              {formData.state ? (
-                <SimpleGrid gridTemplateColumns={"repeat(3,1fr)"}>
-                  <Text textAlign={"left"}>State</Text>
-                  <Text textAlign={"center"}>:</Text>
-                  <Text textAlign={"right"}>{formData.state}</Text>
-                </SimpleGrid>
-              ) : (
-                ""
-              )}
-              {formData.location ? (
-                <SimpleGrid gridTemplateColumns={"repeat(3,1fr)"}>
-                  <Text textAlign={"left"}>Location</Text>
-                  <Text textAlign={"center"}>:</Text>
-                  <Text textAlign={"right"}>{formData.location}</Text>
-                </SimpleGrid>
-              ) : (
-                ""
-              )}
-            </Box>
+            {formData.name ? (
+              <Box width={"60%"} padding={"50px"} boxShadow={"md"}>
+                <Center mb={"10px"}>
+                  <Text as={"h3"} fontWeight={"bold"}>
+                    Current Address
+                  </Text>
+                </Center>
+
+                {formData.name ? (
+                  <SimpleGrid gridTemplateColumns={"repeat(3,1fr)"}>
+                    <Text textAlign={"left"}>Name</Text>
+                    <Text textAlign={"center"}>:</Text>
+                    <Text textAlign={"right"}>{formData.name}</Text>
+                  </SimpleGrid>
+                ) : null}
+                {formData.mobile ? (
+                  <SimpleGrid gridTemplateColumns={"repeat(3,1fr)"}>
+                    <Text textAlign={"left"}>Mobile</Text>
+                    <Text textAlign={"center"}>:</Text>
+                    <Text textAlign={"right"}>{formData.mobile}</Text>
+                  </SimpleGrid>
+                ) : (
+                  ""
+                )}
+                {formData.pincode ? (
+                  <SimpleGrid gridTemplateColumns={"repeat(3,1fr)"}>
+                    <Text textAlign={"left"}>Pincode</Text>
+                    <Text textAlign={"center"}>:</Text>
+                    <Text textAlign={"right"}>{formData.pincode}</Text>
+                  </SimpleGrid>
+                ) : (
+                  ""
+                )}
+                {formData.city ? (
+                  <SimpleGrid gridTemplateColumns={"repeat(3,1fr)"}>
+                    <Text textAlign={"left"}>City</Text>
+                    <Text textAlign={"center"}>:</Text>
+                    <Text textAlign={"right"}>{formData.city}</Text>
+                  </SimpleGrid>
+                ) : (
+                  ""
+                )}
+                {formData.state ? (
+                  <SimpleGrid gridTemplateColumns={"repeat(3,1fr)"}>
+                    <Text textAlign={"left"}>State</Text>
+                    <Text textAlign={"center"}>:</Text>
+                    <Text textAlign={"right"}>{formData.state}</Text>
+                  </SimpleGrid>
+                ) : (
+                  ""
+                )}
+                {formData.location ? (
+                  <SimpleGrid gridTemplateColumns={"repeat(3,1fr)"}>
+                    <Text textAlign={"left"}>Location</Text>
+                    <Text textAlign={"center"}>:</Text>
+                    <Text textAlign={"right"}>{formData.location}</Text>
+                  </SimpleGrid>
+                ) : (
+                  ""
+                )}
+              </Box>
+            ) : null}
 
             <Modal blockScrollOnMount={false} isOpen={isOpen} onClose={onClose}>
               <ModalOverlay />
@@ -420,19 +423,20 @@ export const Bag = () => {
             </h1>
             <Flex justifyContent={"space-between"} mt={2}>
               <Text>Total MRP</Text>
-              <Text>${total.toFixed(2)}</Text>
+              <Text>${total === false ? 0 : total.toFixed(2)}</Text>
             </Flex>
             <hr style={{ marginRight: "100px" }} />
             <Flex justifyContent={"space-between"} mt={2}>
               <Text>Discount on MRP</Text>
               <Text textAlign={"right"}>
                 {" "}
-                <b>-</b> ${(total - price).toFixed(2)}
+                <b>-</b> $
+                {total && price === false ? 0 : (total - price).toFixed(2)}
               </Text>
             </Flex>
             <Flex justifyContent={"space-between"} mt={2}>
               <Text>Total Price</Text>
-              <Text>${price.toFixed(2)}</Text>
+              <Text>${price === false ? 0 : price.toFixed(2)}</Text>
             </Flex>
             <hr style={{ marginRight: "100px" }} />
 
@@ -450,7 +454,7 @@ export const Bag = () => {
               </b>
               <b>
                 {" "}
-                <Text>${price + 25}</Text>
+                <Text>${price === false ? 0 : price + 25}</Text>
               </b>
             </Flex>
             <HStack spacing={3} margin={"20px 0"}>

@@ -12,7 +12,7 @@ function App() {
   const auth = useSelector((store) => {
     return store.authReducer.isAuth;
   });
-  // console.log(auth);
+  console.log(auth);
   return (
     <div className="App">
       <Flex justifyContent={"space-between"}>
@@ -23,7 +23,7 @@ function App() {
         <Link to={`${"dress"}/${"64522cd8278fb6ceb2f28137"}`}>
           singleproduct
         </Link>
-        {!auth ? <Login text={"Bag"} /> : <Link to={"/bag"}>bag</Link>}
+        {auth ? <Login text={"Bag"} /> : <Link to={"/bag"}>bag</Link>}
         <Link to={"/wishlist"}>wishlist</Link>
         <Link to={"/admin/dashboard"}>Admin</Link>
         <Link to={"/orders"}>Orders</Link>
