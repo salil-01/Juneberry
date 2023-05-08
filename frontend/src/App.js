@@ -16,15 +16,17 @@ function App() {
   return (
     <div className="App">
       <Flex justifyContent={"space-between"}>
-        <Login text={"Login"}/>
-        <Signup text={"Signup"}/>
+        <Login text={"Login"} />
+        <Signup text={"Signup"} />
         <Link to={"/signup"}>signup</Link>
         <Link to={"/products"}>products</Link>
-        <Link to={`singleproduct/${1}`}>singleproduct</Link>
-        {auth ? <Login text={"Bag"} /> : <Link to={"/bag"}>bag</Link>}
+        <Link to={`${"dress"}/${"64522cd8278fb6ceb2f28137"}`}>
+          singleproduct
+        </Link>
+        {!auth ? <Login text={"Bag"} /> : <Link to={"/bag"}>bag</Link>}
         <Link to={"/wishlist"}>wishlist</Link>
-        <Link to={"/admin/dashboard"} >Admin</Link>
-        <Link to={"/orders"} >Orders</Link>
+        <Link to={"/admin/dashboard"}>Admin</Link>
+        <Link to={"/orders"}>Orders</Link>
       </Flex>
       {/* <Navbar /> */}
 
