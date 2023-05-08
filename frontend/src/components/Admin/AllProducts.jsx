@@ -17,6 +17,7 @@ import {
   Spinner,
   Stack,
   Skeleton,
+  TableContainer,
 } from "@chakra-ui/react";
 import { BiSearchAlt2 } from "react-icons/bi";
 import { BiSort } from "react-icons/bi";
@@ -25,12 +26,18 @@ import { ProductRow } from "./ProductRow";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteProduct, getProduct } from "../../redux/adminReducer/action";
+import { useLocation, useSearchParams } from "react-router-dom";
 const SearchField = ({ field, onSearch }) => {
   const [search, setSearch] = useState(false);
-  const [text, setText] = useState("");
+  const [searchParams, setSearchParams] = useSearchParams();
+  const initial = searchParams.get("name");
+  const [text, setText] = useState(initial || "");
   const closeSearch = () => {
     setSearch((state) => !state);
   };
+  // useEffect(() => {
+  //   
+  // }, [text]);
   return (
     <Flex align="center" justify="space-between">
       {search ? (
@@ -72,8 +79,9 @@ const SortFields = ({ text }) => {
   );
 };
 export const AllProducts = () => {
-  const onSearch = () => {};
   const [category, setCategory] = useState("dress");
+  const [searchParams, setSearchParams] = useSearchParams();
+  let val = searchParams.get("name") || "";
   const dispatch = useDispatch();
   const toast = useToast();
   const productData = useSelector((store) => {
@@ -82,6 +90,13 @@ export const AllProducts = () => {
   const token = useSelector((store) => {
     return store.authReducer.token;
   });
+  //search functionality
+  const onSearch = (val) => {
+    let params = {};
+    val && (params.name = val);
+    setSearchParams(params);
+    // dispatch(getProduct(category, val));
+  };
   const handleDelete = (id, category) => {
     // console.log(id, category);
     dispatch(deleteProduct(id, category, token)).then(() => {
@@ -96,8 +111,8 @@ export const AllProducts = () => {
   };
   // console.log(productData);
   useEffect(() => {
-    dispatch(getProduct(category));
-  }, [category]);
+    dispatch(getProduct(category,val));
+  }, [category,searchParams]);
   return (
     <>
       <Flex mb={"10px"}>
@@ -127,48 +142,50 @@ export const AllProducts = () => {
           );
         })
       ) : (
-        <Table variant={"striped"} bg={"#FFF3E2"} size="sm">
-          <Thead>
-            <Tr>
-              <Th>
-                <SearchField field={"Name"} onSearch={onSearch} />
-              </Th>
-              <Th>
-                <SearchField field={"ID"} onSearch={onSearch} />
-              </Th>
-              <Th>
-                <SortFields text="MRP ($)" />
-              </Th>
-              <Th>
-                <SortFields text="Price ($)" />
-              </Th>
-              <Th>
-                <SortFields text="Brand" />
-              </Th>
-              <Th>
-                <SortFields text="Rating" />
-              </Th>
-              <Th>
-                <Text>EDIT</Text>
-              </Th>
-              <Th>
-                <Text>DELETE</Text>
-              </Th>
-              <Th />
-            </Tr>
-          </Thead>
-          <Tbody>
-            {productData.products.msg?.map((element) => (
-              <ProductRow
-                key={element._id}
-                {...element}
-                category={category}
-                handleDelete={handleDelete}
-              />
-            ))}
-          </Tbody>
-          <Tfoot></Tfoot>
-        </Table>
+        <TableContainer>
+          <Table variant={"striped"} colorScheme={"teal"} size="sm">
+            <Thead>
+              <Tr>
+                <Th>
+                  <SearchField field={"Name"} onSearch={onSearch} />
+                </Th>
+                <Th>
+                  <SearchField field={"ID"} onSearch={onSearch} />
+                </Th>
+                <Th>
+                  <SortFields text="MRP ($)" />
+                </Th>
+                <Th>
+                  <SortFields text="Price ($)" />
+                </Th>
+                <Th>
+                  <SortFields text="Brand" />
+                </Th>
+                <Th>
+                  <SortFields text="Rating" />
+                </Th>
+                <Th>
+                  <Text>EDIT</Text>
+                </Th>
+                <Th>
+                  <Text>DELETE</Text>
+                </Th>
+                <Th />
+              </Tr>
+            </Thead>
+            <Tbody>
+              {productData.products.msg?.map((element) => (
+                <ProductRow
+                  key={element._id}
+                  {...element}
+                  category={category}
+                  handleDelete={handleDelete}
+                />
+              ))}
+            </Tbody>
+            <Tfoot></Tfoot>
+          </Table>
+        </TableContainer>
       )}
     </>
   );

@@ -28,7 +28,8 @@ export const addProductDress = (productData, token) => async (dispatch) => {
       // console.log(res);
       dispatch({ type: POST_PRODUCT_SUCCESS });
     })
-    .catch(() => {
+    .catch((error) => {
+      console.log(error);
       dispatch({ type: PRODUCT_FAILURE });
     });
 };
@@ -45,20 +46,26 @@ export const addProductShoes = (productData, token) => async (dispatch) => {
       // console.log(res);
       dispatch({ type: POST_PRODUCT_SUCCESS });
     })
-    .catch(() => {
+    .catch((error) => {
+      console.log(error);
       dispatch({ type: PRODUCT_FAILURE });
     });
 };
 
 //getting data from server and populating on dom
-export const getProduct = (category) => async (dispatch) => {
+export const getProduct = (category, val) => async (dispatch) => {
   dispatch({ type: PRODUCT_REQUEST });
+  const parameter = val ? { name: val } : {};
   await axios
-    .get(`${process.env.REACT_APP_BACKEND_URL}/${category}`)
+    .get(`${process.env.REACT_APP_BACKEND_URL}/${category}`, {
+      params: parameter,
+    })
     .then((res) => {
+      // console.log(res);
       dispatch({ type: GET_PRODUCT_SUCCESS, payload: res.data });
     })
-    .catch(() => {
+    .catch((error) => {
+      console.log(error);
       dispatch({ type: PRODUCT_FAILURE });
     });
 };
@@ -79,10 +86,11 @@ export const editProduct =
         }
       )
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         dispatch({ type: PATCH_PRODUCT_SUCCESS });
       })
-      .catch(() => {
+      .catch((error) => {
+        console.log(error);
         dispatch({ type: PRODUCT_FAILURE });
       });
   };
@@ -98,10 +106,11 @@ export const deleteProduct = (id, category, token) => async (dispatch) => {
       },
     })
     .then((res) => {
-      console.log(res);
+      // console.log(res);
       dispatch({ type: DELETE_PRODUCT_SUCCESS });
     })
-    .catch(() => {
+    .catch((error) => {
+      console.log(error);
       dispatch({ type: PRODUCT_FAILURE });
     });
 };
@@ -120,34 +129,34 @@ export const getOrders = (token) => async (dispatch) => {
       // console.log(res);
       dispatch({ type: GET_ORDER_SUCCESS, payload: res.data.orders });
     })
-    .catch(() => {
+    .catch((error) => {
+      console.log(error);
       dispatch({ type: PRODUCT_FAILURE });
     });
 };
 
 //change order status
-export const changeOrderStatus =
-   (id, value, token) => async (dispatch) => {
-    dispatch({ type: PRODUCT_REQUEST });
-    await axios
-      .patch(
-        `${process.env.REACT_APP_BACKEND_URL}/order/edit/${id}`,
-        {
-          status: value,
+export const changeOrderStatus = (id, value, token) => async (dispatch) => {
+  dispatch({ type: PRODUCT_REQUEST });
+  await axios
+    .patch(
+      `${process.env.REACT_APP_BACKEND_URL}/order/edit/${id}`,
+      {
+        status: value,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
-      .then((res) => {
-        console.log(res);
-        dispatch({ type: PATCH_ORDER_SUCCESS });
-      })
-      .catch((error) => {
-        console.log(error);
-        dispatch({ type: PRODUCT_FAILURE });
-      });
-  };
+      }
+    )
+    .then((res) => {
+      // console.log(res);
+      dispatch({ type: PATCH_ORDER_SUCCESS });
+    })
+    .catch((error) => {
+      console.log(error);
+      dispatch({ type: PRODUCT_FAILURE });
+    });
+};

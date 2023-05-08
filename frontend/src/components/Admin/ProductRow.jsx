@@ -1,4 +1,4 @@
-import { Tr, Td, Text, IconButton, useColorModeValue } from "@chakra-ui/react";
+import { Tr, Td, Text, IconButton, useColorModeValue, Tooltip } from "@chakra-ui/react";
 import { BiEdit } from "react-icons/bi";
 import { RiDeleteBin5Fill } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
@@ -28,20 +28,24 @@ export const ProductRow = (productData) => {
       </Td>
 
       <Td>
-        <IconButton
+      <Tooltip hasArrow label='Edit Product' bg='green.300' color='black'>
+      <IconButton
           onClick={() => navigate(`/admin/${productData.category}/edit/${productData._id}`)}
           border={"1px solid teal"}
           color={"teal"}
           _hover={{
-            backgroundColor: "teal",
+            backgroundColor: "green",
             color: "white",
           }}
           aria-label="edit product"
           size="sm"
           icon={<BiEdit />}
         />
+</Tooltip>
+       
       </Td>
       <Td>
+      <Tooltip hasArrow label='Delete Product' bg='red.400' color='white'>
         <IconButton
             onClick={() => productData.handleDelete(productData._id,productData.category)}
           border={"1px solid red"}
@@ -54,6 +58,7 @@ export const ProductRow = (productData) => {
           size="sm"
           icon={<RiDeleteBin5Fill />}
         />
+        </Tooltip>
       </Td>
     </Tr>
   );

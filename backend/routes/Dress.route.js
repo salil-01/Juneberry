@@ -7,11 +7,11 @@ const dressRouter = express.Router();
 
 /*-------- Get all the dresses ------*/
 dressRouter.get("/", async (req, res) => {
-
   //handling pagination filters and sorting in a single query
-  let { brand, sort, page } = req.query;
+  let { brand, sort, page, name } = req.query;
   const limit = 9;
   let obj = {};
+  name ? (obj.name = { $regex: name, $options: "i" }) : null;
   brand ? (obj.brand = brand) : null;
   if (page) {
     let skip = +page * limit - limit;

@@ -51,9 +51,6 @@ export const UserOrder = () => {
       backgroundColor={"white"}
       overflowX="auto"
     >
-      <Table variant="striped">
-        <Tbody textTransform={"capitalize"}>
-          {/* //Skeleton */}
           {isLoading ? (
             [...Array(5).keys()].map((item) => {
               return (
@@ -163,8 +160,6 @@ export const UserOrder = () => {
               );
             })
           )}
-        </Tbody>
-      </Table>
     </Box>
   );
 };

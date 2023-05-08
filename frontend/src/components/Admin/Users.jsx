@@ -14,6 +14,8 @@ import {
   Box,
   Center,
   useToast,
+  Stack,
+  Skeleton,
 } from "@chakra-ui/react";
 import axios from "axios";
 import { useEffect } from "react";
@@ -101,31 +103,44 @@ export const Users = () => {
         // alignItems={"center"}
         //   mr={["30px"]}
       >
-        <Table variant="striped" colorScheme={"teal"}>
-          <Thead>
-            <Tr>
-              <Th borderColor={"gray.300"}>
-                <Center>ID</Center>
-              </Th>
-              <Th borderColor={"gray.300"}>
-                <Center>Name</Center>
-              </Th>
-              <Th borderColor={"gray.300"}>
-                <Center>Email</Center>
-              </Th>
-              <Th borderColor={"gray.300"}>
-                <Center>Mobile</Center>
-              </Th>
-              <Th borderColor={"gray.300"}>
-                <Center>Delete</Center>
-              </Th>
-            </Tr>
-          </Thead>
-          <Tbody>
-            {loading ? (
-              <Spinner marginLeft={"30vw"} size={"xl"} />
-            ) : (
-              data?.map((element) => (
+        {loading ? (
+          [...Array(10).keys()].map((item) => {
+            return (
+             
+                <Stack key={item} width={"100%"} margin={"20px auto"}>
+                  <Skeleton
+                    height={{ base: "70", md: "70", lg: "70" }}
+                    margin={"auto"}
+                    width={"100%"}
+                    borderRadius={"sm"}
+                  />
+                </Stack>
+              
+            );
+          })
+        ) : (
+          <Table variant="striped" colorScheme={"teal"}>
+            <Thead>
+              <Tr>
+                <Th borderColor={"gray.300"}>
+                  <Center>ID</Center>
+                </Th>
+                <Th borderColor={"gray.300"}>
+                  <Center>Name</Center>
+                </Th>
+                <Th borderColor={"gray.300"}>
+                  <Center>Email</Center>
+                </Th>
+                <Th borderColor={"gray.300"}>
+                  <Center>Mobile</Center>
+                </Th>
+                <Th borderColor={"gray.300"}>
+                  <Center>Delete</Center>
+                </Th>
+              </Tr>
+            </Thead>
+            <Tbody>
+              {data?.map((element) => (
                 <Tr key={element._id}>
                   <Td backgroundColor={"white"}>
                     <Center>{element._id}</Center>
@@ -154,10 +169,10 @@ export const Users = () => {
                     </Center>
                   </Td>
                 </Tr>
-              ))
-            )}
-          </Tbody>
-        </Table>
+              ))}
+            </Tbody>
+          </Table>
+        )}
       </TableContainer>
     </Box>
   );
