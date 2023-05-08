@@ -27,7 +27,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { postOrder } from "../../redux/bagReducer/action";
+import { postOrder, updateBag } from "../../redux/bagReducer/action";
 
 const CardDetail = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -83,8 +83,8 @@ const CardDetail = () => {
           duration: 2000,
           isClosable: true,
         });
-        // dispatch(updateBag([]));
-        // navigate("/");
+        dispatch(updateBag([]));
+        navigate("/");
       });
     }, 2000);
   };

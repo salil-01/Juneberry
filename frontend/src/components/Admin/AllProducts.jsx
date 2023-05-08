@@ -15,6 +15,8 @@ import {
   Spacer,
   useToast,
   Spinner,
+  Stack,
+  Skeleton,
 } from "@chakra-ui/react";
 import { BiSearchAlt2 } from "react-icons/bi";
 import { BiSort } from "react-icons/bi";
@@ -112,11 +114,22 @@ export const AllProducts = () => {
         </Select>
       </Flex>
       {productData.isLoading ? (
-        <Spinner size={"xl"} marginTop={"20vh"} />
+        [...Array(15).keys()].map((item) => {
+          return (
+            <Stack key={item} width={"100%"} margin={"20px auto"}>
+              <Skeleton
+                height={{ base: "10", md: "10" }}
+                margin={"auto"}
+                width={"100%"}
+                borderRadius={"sm"}
+              />
+            </Stack>
+          );
+        })
       ) : (
-        <Table variant={"striped"} bg={"#FFF3E2"} size="sm" >
+        <Table variant={"striped"} bg={"#FFF3E2"} size="sm">
           <Thead>
-            <Tr >
+            <Tr>
               <Th>
                 <SearchField field={"Name"} onSearch={onSearch} />
               </Th>

@@ -14,6 +14,7 @@ import {
   Image,
   useToast,
   Spinner,
+  SimpleGrid,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -68,7 +69,7 @@ export const AllOrders = () => {
   };
 
   return (
-    <Box maxWidth="100%" backgroundColor={"white"} overflowX="auto">
+    <Box maxWidth="100%"  backgroundColor={"white"} overflowX="auto">
       <Table variant="striped">
         <Tbody textTransform={"capitalize"}>
           {totalOrder.isLoading ? (
@@ -84,7 +85,11 @@ export const AllOrders = () => {
                   p={{ base: "0", md: "1rem" }}
                   overflow={"auto"}
                 >
-                  <Badge fontSize={"1rem"} textAlign={"left"}>
+                  <Badge
+                    fontSize={"1rem"}
+                    margin={"0px 0px 10px 0px"}
+                    textAlign={"left"}
+                  >
                     {" "}
                     order Id : {item._id}
                   </Badge>
@@ -92,16 +97,25 @@ export const AllOrders = () => {
                     gap="9"
                     justify={"space-around"}
                     alignItems={"center"}
-                    py="1rem"
-                    minW={"1000px"}
-
+                    flexDirection={{ sm: "column", md: "column", lg: "row" }}
                   >
-                    <Box>
-                      <Image src={item.img} boxSize={"100%"} />
+                    <Box width={{ sm: "50%", md: "50%", lg: "10%" }}>
+                      <Image src={item.img} />
                     </Box>
-                    <Text>Name : {item.author}</Text>
-                    <Text>City: {item.city}</Text>
-
+                    <SimpleGrid
+                      width={"40%"}
+                      textAlign={"left"}
+                      columnGap={"25px"}
+                      rowGap={"10px"}
+                      gridTemplateColumns={"repeat(2,1fr)"}
+                    >
+                      <Text>
+                        <b>User : {item.author}</b>
+                      </Text>
+                      <Text>City: {item.city}</Text>
+                      <Text>Price: ${item.price}</Text>
+                      <Text>Quantity: {item.quantity}</Text>
+                    </SimpleGrid>
                     <Button
                       textTransform={"capitalize"}
                       onClick={() => toggleStatus(item._id)}
@@ -121,22 +135,17 @@ export const AllOrders = () => {
                   <Flex flexDir={"column"} gap="5">
                     <Flex
                       key={item._id}
-                      gap="15"
-                      align={"center"}
+                      alignItems={"center"}
+                      justifyContent={"space-around"}
                       borderWidth="1px"
-                      px="1rem"
-                      py="0.2rem"
+                      padding={"5px"}
                       backgroundColor={"teal.400"}
                       color={"black"}
-                      minW={"1000px"}
                       borderRadius={"5px"}
+                      margin={"10px 0px 10px 0px"}
                     >
-                      <Box width="10rem">{item.name.substring(0, 15)}</Box>
-                      <Flex gap="4">
-                        <Text>Price: ₹{item.price}</Text>
-                        <Text>Quantity: {item.quantity}</Text>
-                      </Flex>
-                      <Box pl="7rem">ordered on : {item.created}</Box>
+                      <Box>Product Name : {item.name}</Box>
+                      <Box>ordered on : {item.created}</Box>
                     </Flex>
                   </Flex>
                 </Box>

@@ -90,7 +90,7 @@ export const UserOrder = () => {
               return (
                 <Box
                   key={item.id}
-                  width={"70%"}
+                  width={{"sm":"100%","md":"100%","lg":"70%"}}
                   margin={"20px auto"}
                   p={{ base: "0", md: "1rem" }}
                   bg={"#F5EBEB"}
