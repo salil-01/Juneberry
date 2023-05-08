@@ -209,7 +209,7 @@
     width: 20%;
 }
 
-.recommendation{
+.recommendation {
     text-align: left;
     padding-left: 6.5rem;
     margin-bottom: 2%;
@@ -226,7 +226,7 @@
     }
 
     .sortcontainer {
-        width: 45%;
+        width: 60%;
     }
 
     .infoimagegrid {
@@ -240,6 +240,8 @@
 }
 
 @media screen and (max-width: 630px) {
+   
+
     .topgrid {
         grid-template-columns: repeat(2, 1fr);
         gap: 10px;
@@ -247,6 +249,7 @@
 
     .maincontainer {
         flex-direction: column;
+        width: 100%;
     }
 
     .sidebarcontainer {
@@ -256,7 +259,7 @@
 
     .productscontainer {
         width: 100%;
-
+        /* border: 1px solid red; */
     }
 
     .sidebar {
@@ -281,6 +284,8 @@
         align-items: center;
     }
 
+    /* single product css */
+
     .singleproductcontainer {
         flex-direction: column;
         width: 100%;
@@ -300,17 +305,31 @@
         width: 100%;
     }
 
-    .imagecontainer{
+    .imagecontainer {
         width: 100%;
     }
 }
 
 @media screen and (max-width: 550px) {
-    .infoselectioncontainer{
-        flex-direction: column ;
+    .maincontainer {
+        flex-direction: column;
     }
 
-    .recommendation{
+    .sidebarcontainer {
+        width: 80%;
+        margin: auto;
+    }
+
+    .productscontainer {
+        width: 100%;
+        /* border: 1px solid red; */
+    }
+
+    .infoselectioncontainer {
+        flex-direction: column;
+    }
+
+    .recommendation {
         padding-left: 1rem;
     }
 }
