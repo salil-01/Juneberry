@@ -21,6 +21,7 @@ import {
   Divider,
   Stack,
   SimpleGrid,
+  Card,
 } from "@chakra-ui/react";
 import "../components/Bag/Bag.css";
 import React, { useState } from "react";
@@ -31,6 +32,7 @@ import { useDispatch } from "react-redux";
 import { addAddress } from "../redux/bagReducer/action";
 import { SingleProductPreview } from "../components/Bag/SingleProductPreview";
 import { getData } from "../utilis/localStorage";
+import CardDetail from "../components/Bag/Payment";
 //   import Navbar from "../components/Homepage/Navbar";
 //   import Footer from "../components/Homepage/Footer";
 
@@ -45,7 +47,7 @@ export const Bag = () => {
   const dispatch = useDispatch();
   const [total, setTotal] = useState(0);
   const [price, setPrice] = useState(0);
-  const [formData, setFormData] = useState(getData("address")|| initialData);
+  const [formData, setFormData] = useState(getData("address") || initialData);
   const { isOpen, onOpen, onClose } = useDisclosure();
   // console.log(price,total);
   const handleChange = (e) => {
@@ -93,21 +95,20 @@ export const Bag = () => {
               onClick={onOpen}
               fontSize="0.9rem"
               // ml={"1%"}
-              fontWeight={"400"}
-              border={"1px solid #1d2b4f"}
-              colorScheme="white"
+              fontWeight={"500"}
+              border={"1px solid #3b475b"}
+              color="#3b475b"
               borderRadius={"0%"}
-              color={"#1d2b4f"}
               // padding={"5px"}
               _hover={{
                 color: "white",
-                backgroundColor: "#1d2b4f",
+                backgroundColor: "#3b475b",
               }}
             >
               ADD NEW SHIPPING ADDRESS
             </Button>
             {formData.name ? (
-              <Box width={"60%"} padding={"50px"} boxShadow={"md"}>
+              <Box width={"50%"} padding={"50px"} border={"1px dotted gray"}>
                 <Center mb={"10px"}>
                   <Text as={"h3"} fontWeight={"bold"}>
                     Current Address
@@ -305,11 +306,13 @@ export const Bag = () => {
                 <ModalFooter>
                   <Button
                     width={"full"}
-                    backgroundColor={"#1d2b4f"}
+                    backgroundColor={"#3b475b"}
                     color={"white"}
+                    border={"1px solid #3b475b"}
+                    borderRadius={"0px"}
                     _hover={{
-                      color: "white",
-                      backgroundColor: "#1d2b4f",
+                      color: "#3b475b",
+                      backgroundColor: "white",
                     }}
                     mr={3}
                     onClick={(e) => {
@@ -328,16 +331,16 @@ export const Bag = () => {
           <br />
           <br />
           <Box>
-            <Text textAlign={"left"} fontWeight={"500"}>
+            {/* <Text textAlign={"left"} fontWeight={"500"}>
               3. PAYMENT OPTIONS
-            </Text>
+            </Text> */}
 
-            <Divider border={"1px solid black"} />
-            <HStack marginLeft={"1%"} padding={"15px"}>
-              {/* <CardDetail /> */}
-            </HStack>
+            {/* <Divider border={"1px solid black"} />
+            <HStack marginLeft={"1%"} padding={"15px"}> */}
+            {/* <CardDetail /> */}
+            {/* </HStack> */}
           </Box>
-          <div
+          {/* <div
             style={{
               marginTop: "10px",
               padding: "15px",
@@ -351,7 +354,7 @@ export const Bag = () => {
                 Yeh ! No Convinience fee for this Order
               </p>
             </Flex>
-          </div>
+          </div> */}
         </Box>
         <Box w={{ bs: "80%", md: "80%", lg: "30%" }} margin={"auto"}>
           <div
@@ -410,10 +413,15 @@ export const Bag = () => {
             </Button>
           </Flex>
 
-          <Box padding={15} mt={"10px"} bg={"#f2f2f2"}>
+          <Box
+            mt={"10px"}
+            border={"1px dotted gray"}
+            bg={"#f2f2f2"}
+            padding={"20px"}
+          >
             <h1
               style={{
-                fontSize: "1.7rem",
+                fontSize: "1.5rem",
                 fontWeight: "400",
                 textAlign: "left",
                 padding: "10px 0",
@@ -470,6 +478,9 @@ export const Bag = () => {
                 Safe and Secure Payments. Easy returns. 100% Authentic products
               </Text>
             </HStack>
+            <Box>
+              <CardDetail/>
+            </Box>
           </Box>
         </Box>
       </Stack>

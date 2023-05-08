@@ -75,7 +75,7 @@ export const SingleProductPreview = ({ setTotal, setPrice }) => {
               >
                 <Box
                   margin={"auto 0"}
-                  width={{ sm: "50%", md: "50%", lg: "40%" }}
+                  width={{ sm: "50%", md: "50%", lg: "25%" }}
                 >
                   <Image src={element.img} />
                 </Box>
