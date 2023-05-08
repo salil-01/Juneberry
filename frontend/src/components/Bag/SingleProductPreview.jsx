@@ -16,14 +16,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { updateBag } from "../../redux/bagReducer/action";
 
-export const ProductPreview = ({ setTotal }) => {
+export const SingleProductPreview = ({ setTotal, setPrice }) => {
   const dispatch = useDispatch();
-  const [price, setPrice] = useState(0);
   const bagData = useSelector((store) => {
-    return store.BagReducer.bag;
+    return store.bagReducer.bag;
   });
 
-  //   console.log(bagData);
+  console.log(bagData);
   const handleChange = (e, id) => {
     let val = +e.target.value;
     const updatedData = bagData.map((item) =>
@@ -41,20 +40,25 @@ export const ProductPreview = ({ setTotal }) => {
     // window.location.reload();
   };
   useEffect(() => {
+    let tempmrp =
+      bagData.length > 0 &&
+      bagData.reduce((acc, item) => {
+        return (acc += item.quantity * Number(item.mrp));
+      }, 0);
     let tempprice =
       bagData.length > 0 &&
       bagData.reduce((acc, item) => {
         return (acc += item.quantity * Number(item.price));
       }, 0);
+    setTotal(tempmrp);
     setPrice(tempprice);
-    setTotal(tempprice);
   }, [handleChange]);
   return (
     <div style={{ marginTop: "15px", width: "100%" }}>
       {bagData.length > 0 ? (
         bagData?.map((element) => (
           <Stack
-            key={element.id}
+            key={element._id}
             width={"100%"}
             display={"flex"}
             alignItems={"center"}
@@ -69,14 +73,19 @@ export const ProductPreview = ({ setTotal }) => {
                 spacing={5}
                 gap={"10px"}
               >
-                <Box margin={"auto 0"}>
-                  <Image src={element.image_front} />
+                <Box
+                  margin={"auto 0"}
+                  width={{ sm: "50%", md: "50%", lg: "40%" }}
+                >
+                  <Image src={element.img} />
                 </Box>
 
                 <Box padding={"5px"} w={"70%"}>
                   <Stack spacing={3} textAlign={{ base: "center", lg: "left" }}>
-                    <Text fontSize={"14px"}>{element.title}</Text>
-                    <Text fontSize={"14px"}> ₹ {element.price}</Text>
+                    <Text fontSize={"14px"}>
+                      <b>{element.name}</b>
+                    </Text>
+                    <Text fontSize={"14px"}> $ {element.price}</Text>
                     <Text fontSize={"14px"}>Color: Gray</Text>
                     <HStack
                       justifyContent={{
