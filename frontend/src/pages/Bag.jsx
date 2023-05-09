@@ -15,13 +15,11 @@ import {
   ModalHeader,
   ModalFooter,
   FormControl,
-  FormLabel,
   Tooltip,
   HStack,
   Divider,
   Stack,
   SimpleGrid,
-  Card,
 } from "@chakra-ui/react";
 import "../components/Bag/Bag.css";
 import React, { useState } from "react";
