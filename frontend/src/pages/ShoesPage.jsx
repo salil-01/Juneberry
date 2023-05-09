@@ -1,14 +1,15 @@
 import { Box, Button, Flex, Heading, SimpleGrid } from "@chakra-ui/react"
 import "../styles/productpage.css"
-import Productsidebar from "../components/Productsidebar"
+// import Productsidebar from "../components/Productsidebar"
 import { useDispatch, useSelector } from "react-redux"
 import { useEffect, useState } from "react"
-import { getDressProduct } from "../redux/productReducer/action"
+import { getShoeProduct } from "../redux/productReducer/action"
 import { ChevronRightIcon, ChevronLeftIcon } from "@chakra-ui/icons"
 import { Link, useLocation, useSearchParams } from "react-router-dom"
+import Shoesidebar from "../components/Shoesidebar"
 
 
-export const ProductPage = () => {
+export const ShoesPage = () => {
 
     const [searchParams, setSearchParams] = useSearchParams()
     const initialsort = searchParams.get("sort")
@@ -19,8 +20,7 @@ export const ProductPage = () => {
     const location = useLocation()
     const dispatch = useDispatch()
 
-    const { products } = useSelector((store) => store.DressReducer)
-    console.log(products.length)
+
 
     const handlesort = (e) => {
         setSort(e.target.value)
@@ -33,7 +33,6 @@ export const ProductPage = () => {
 
 
     useEffect(() => {
-        if (brand && products.length < 9) { setPage(1) }
         const params = {
             brand,
             page
@@ -49,28 +48,33 @@ export const ProductPage = () => {
         };
         // (!brand) && (obj.params.page=page)
         sort && (obj.params.sort = sort)
-        dispatch(getDressProduct(obj))
+        dispatch(getShoeProduct(obj))
+        // if (brand && products.length < 9) { setPage(1) }
+
     }, [location.search, sort, page])
 
-    
+    const { products } = useSelector((store) => store.DressReducer)
+    console.log(products.length)
+
+
     return (
         <>
             <SimpleGrid className="topgrid" >
-                <Box className="gridbox" bg='#b18341' height='80px'>DRESSES</Box>
-                <Box className="gridbox" bg='#9a5462' height='80px'>PANTS</Box>
-                <Box className="gridbox" bg='#b48779' height='80px'>JEANS</Box>
-                <Box className="gridbox" bg='#cc835a' height='80px'>GETAWAY & RESORT <br />WEAR</Box>
-                <Box className="gridbox" bg='#887277' height='80px'>TOPS</Box>
-                <Box className="gridbox" bg='#a57772' height='80px'>INTIMATES</Box>
+                <Box className="gridbox" bg='#13674c' height='80px'>5-5.5</Box>
+                <Box className="gridbox" bg='#429786' height='80px'>6-6.5</Box>
+                <Box className="gridbox" bg='#58839c' height='80px'>7-7.5</Box>
+                <Box className="gridbox" bg='#4b9587' height='80px'>8-8.5</Box>
+                <Box className="gridbox" bg='#588a52' height='80px'>9-9.5</Box>
+                <Box className="gridbox" bg='#6799aa' height='80px'>10-11</Box>
             </SimpleGrid>
             <Box className="maincontainer">
                 <Box className="sidebarcontainer">
                     <Heading size={"md"} >Filter By:</Heading>
-                    <Productsidebar />
+                    <Shoesidebar />
                 </Box>
                 <Box className="productscontainer">
                     <Flex className="productscontainertop">
-                        <Box className="label"><Heading size={"md"} >Dresses</Heading></Box>
+                        <Box className="label"><Heading size={"md"} >Footwear</Heading></Box>
                         <Flex className="sortcontainer" >
                             <select onChange={handlesort}>
                                 <option value="">Sort By</option>
@@ -92,8 +96,8 @@ export const ProductPage = () => {
                     </Flex>
                     <Box className="productscontainer2">
                         {products?.map((el) => {
-                            return <Link to={`/${"dress"}/${el._id}`}>
-                                <Box key={el._id} style={{ color: "gray", textAlign: "left", padding: "3%" }}>
+                            return <Link key={el._id} to={`/singleproduct/${el._id}`}>
+                                <Box style={{ color: "gray", textAlign: "left", padding: "3%" }}>
                                     <img src={el.img} alt={el.name} />
                                     <p>{el.name}</p>
                                     <span>${el.price}</span>
