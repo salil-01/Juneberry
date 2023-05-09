@@ -1,4 +1,12 @@
-import { Box, Button, Flex, Heading, SimpleGrid } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Flex,
+  Heading,
+  SimpleGrid,
+  Skeleton,
+  Stack,
+} from "@chakra-ui/react";
 import "../styles/productpage.css";
 import Productsidebar from "../components/Productsidebar";
 import { useDispatch, useSelector } from "react-redux";
@@ -17,8 +25,8 @@ export const ProductPage = () => {
   const location = useLocation();
   const dispatch = useDispatch();
 
-  const { products } = useSelector((store) => store.DressReducer);
-  console.log(products.length);
+  const { products, isLoading } = useSelector((store) => store.DressReducer);
+  // console.log(products.length);
 
   const handlesort = (e) => {
     setSort(e.target.value);
@@ -105,27 +113,58 @@ export const ProductPage = () => {
                   variant="ghost"
                   isDisabled={products.length < 9}
                   onClick={() => handlepage(1)}
-                  leftIcon={<ChevronRightIcon boxSize={10} />}
+                  rightIcon={<ChevronRightIcon boxSize={10} />}
                 ></Button>
               </Box>
             </Flex>
           </Flex>
           <Box className="productscontainer2">
-            {products?.map((el) => {
-              return (
-                <Link to={`/${"dress"}/${el._id}`}>
-                  <Box
-                    key={el._id}
-                    style={{ color: "gray", textAlign: "left", padding: "3%" }}
-                  >
-                    <img src={el.img} alt={el.name} />
-                    <p>{el.name}</p>
-                    <span>${el.price}</span>
-                    <p>🟢🔵(2colors)</p>
-                  </Box>
-                </Link>
-              );
-            })}
+            {isLoading
+              ? [...Array(9).keys()].map((item) => {
+                  return (
+                    <Stack key={item} width={"80%"} margin={"auto"}>
+                      <Skeleton
+                        height={{ base: "350", md: "400", lg: "500" }}
+                        width={{ base: "250px", md: "250px", lg: "320px" }}
+                        borderRadius={"sm"}
+                      />
+                      <Skeleton
+                        height="20px"
+                        width={{ base: "250px", md: "250px", lg: "320px" }}
+                        borderRadius={"sm"}
+                      />
+                      <Skeleton
+                        height="20px"
+                        width={{ base: "250px", md: "250px", lg: "320px" }}
+                        borderRadius={"sm"}
+                      />
+                      <Skeleton
+                        height="20px"
+                        width={{ base: "250px", md: "250px", lg: "320px" }}
+                        borderRadius={"sm"}
+                      />
+                    </Stack>
+                  );
+                })
+              : products?.map((el) => {
+                  return (
+                    <Link key={el._id} to={`/${"dress"}/${el._id}`}>
+                      <Box
+                        // key={el._id}
+                        style={{
+                          color: "gray",
+                          textAlign: "left",
+                          padding: "3%",
+                        }}
+                      >
+                        <img src={el.img} alt={el.name} />
+                        <p>{el.name}</p>
+                        <span>${el.price}</span>
+                        <p>🟢🔵(2colors)</p>
+                      </Box>
+                    </Link>
+                  );
+                })}
           </Box>
         </Box>
       </Box>

@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import { AddProduct } from "../components/Admin/AddProduct";
 import { AllProducts } from "../components/Admin/AllProducts";
 import { Dashboard } from "../components/Admin/Dashboard";
@@ -6,7 +6,6 @@ import { EditProduct } from "../components/Admin/EditProduct";
 import { AllOrders } from "../components/Admin/Orders";
 import Sidebar from "../components/Admin/Sidebar";
 import { Users } from "../components/Admin/Users";
-import { UserPrivateRoute } from "../components/UserPrivateRoute";
 import AdminPage from "./AdminPage";
 import { Bag } from "./Bag";
 import { Homepage } from "./Homepage";
@@ -16,25 +15,98 @@ import { ProductPage } from "./ProductPage";
 import { Signup } from "./Signup";
 import { SingleProductPage } from "./SingleProduct";
 import { UserOrder } from "./UserOrder";
-import { WishList } from "./WishList";
 import { ShoesPage } from "./ShoesPage";
+import { Navbar } from "../components/Navbar";
+import { Footer } from "../components/Footer";
+import { UserPrivateRoute } from "../components/UserPrivateRoute";
 
 export const AllRoutes = () => {
+  const location = useLocation();
+  const background = location.state && location.state.background;
   return (
     <Routes>
-      <Route path="/" element={<Homepage />} />
+      {/* user section */}
+      <Route
+        path="/"
+        element={
+          <>
+            <Navbar />
+            <Homepage />
+            <Footer />
+          </>
+        }
+      ></Route>
+      <Route
+        path="/login"
+        element={
+          <>
+            <Navbar />
+            <Login />
+            <Footer />
+          </>
+        }
+      />
+      {/* <Route path="/signup" element={<Signup />} /> */}
 
-      <Route path="/login" element={<Login />} />
-      <Route path="/signup" element={<Signup />} />
+      <Route
+        path="/products/dress"
+        element={
+          <>
+            <Navbar />
+            <ProductPage />
+            <Footer />
+          </>
+        }
+      />
 
-      <Route path="/products/dress" element={<ProductPage />} />
+      <Route
+        path="/products/shoes"
+        element={
+          <>
+            <Navbar />
+            <ShoesPage />
+            <Footer />
+          </>
+        }
+      />
 
-      <Route path="/products/shoes" element={<ShoesPage />} />
+      <Route
+        path="/:category/:id"
+        element={
+          <>
+            <Navbar />
+            <SingleProductPage />
+            <Footer />
+          </>
+        }
+      />
 
-      <Route path="/:category/:id" element={<SingleProductPage />} />
+      <Route
+        path="/bag"
+        element={
+          <UserPrivateRoute>
+            <>
+              <Navbar />
+              <Bag />
+              <Footer />
+            </>
+          </UserPrivateRoute>
+        }
+      />
+      <Route
+        path="/orders"
+        element={
+          <UserPrivateRoute>
+          <>
+            <Navbar />
+            <UserOrder />
+            <Footer />
+          </>
+          </UserPrivateRoute>
+        }
+      />
 
-      <Route path="/bag" element={<Bag />} />
-      <Route path="/orders" element={<UserOrder />} />
+      {/* admin section */}
       <Route path="/admin" element={<AdminPage />} />
       <Route
         path="/admin/dashboard"

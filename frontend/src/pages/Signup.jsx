@@ -25,6 +25,7 @@ import {
 import { CloseIcon, ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import axios from "axios";
 import { Login } from "./Login";
+import { Link } from "react-router-dom";
 const inital = {
   name: "",
   number: "",
@@ -88,7 +89,7 @@ export const Signup = ({ text, color }) => {
 
   return (
     <>
-      <Text _hover={{textDecoration:"underline",cursor:"pointer"}} onClick={onOpen} color={color}>
+      <Text _hover={{ cursor: "pointer" }} fontWeight={"500"} onClick={onOpen} color={color}>
         {text}
       </Text>
       <Modal size={"lg"} isOpen={isOpen} onClose={onClose}>
@@ -226,7 +227,7 @@ export const Signup = ({ text, color }) => {
                 width={"100%"}
                 borderRadius={"0px"}
               >
-                <Login text={"Login"} color={"rgb(75,86,102)"} />
+                <Link to={"/login"}>Login</Link>
               </Button>
             </VStack>
           </ModalFooter>

@@ -20,34 +20,35 @@ import {
   MenuList,
   MenuItem,
   useToast,
-  Img,
 } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon, ChevronDownIcon } from "@chakra-ui/icons";
 import logo from "../assets/juneberry.png";
-import { CiHeart, CiSearch } from "react-icons/ci";
+import { CiSearch } from "react-icons/ci";
 import { IoBagOutline, IoPersonOutline } from "react-icons/io5";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
+import { Login } from "../pages/Login";
+import { Signup } from "../pages/Signup";
 // import Signup from "../../pages/Signup";
 // import { logout } from "../../redux/auth/action";
 
 export const Navbar = () => {
   const { isOpen, onToggle } = useDisclosure();
-  // eslint-disable-next-line no-unused-vars
-  // eslint-disable-next-line no-unused-vars
   const [show, setShow] = useState(false);
   const dispatch = useDispatch();
   const toast = useToast();
   const bagTotal = useSelector((store) => {
     return store.bagReducer.bag.length;
   });
-  const cartTotal = useSelector((store) => {
-    return store.bagReducer.wishlist.length;
+  const adminAuth = useSelector((store) => {
+    return store.authReducer.isAdminAuth;
   });
   const auth = useSelector((store) => {
-    return store.authReducer.isAdminAuth;
+    return store.authReducer.isAuth;
+  });
+  const user = useSelector((store) => {
+    return store.authReducer.user;
   });
   const handleSearchClick = () => {
     setShow((prev) => !prev);
@@ -96,10 +97,10 @@ export const Navbar = () => {
                 base: "center",
                 md: "left",
               })}
-              width={{"sm":"100%","md":"100%","lg":"10%"}}
+              width={{ sm: "100%", md: "100%", lg: "10%" }}
             >
               <Link to="/">
-                <Image src={logo} boxSize={"100%"}/>
+                <Image src={logo} boxSize={"100%"} />
               </Link>
             </Box>
             <Box w="100%">
@@ -131,7 +132,6 @@ export const Navbar = () => {
             <Box
               w={"30px"}
               h={"30px"}
-              // border={"1px solid black"}
               _hover={{ cursor: "pointer" }}
               onClick={handleSearchClick}
             >
@@ -139,16 +139,12 @@ export const Navbar = () => {
                 <CiSearch size={"28px"} />
               </Link>
             </Box>
-            <Box
-              w={"30px"}
-              h={"30px"}
-              // border={"1px solid black"}
-              _hover={{ cursor: "pointer" }}
-            >
+            <Box w={"30px"} h={"30px"} _hover={{ cursor: "pointer" }}>
               <HStack>
                 <Link to={"/bag"}>
                   <IoBagOutline size={"27px"} />
                 </Link>
+
                 <span
                   style={{
                     marginTop: "-30px",
@@ -172,20 +168,19 @@ export const Navbar = () => {
                 </MenuButton>
                 <MenuList padding={"10px"}>
                   <MenuItem>
-                    {auth ? (
-                      <Text fontWeight={"500"}>Hello , Salil 🙂</Text>
+                    {auth || adminAuth? (
+                      <Text fontWeight={"500"}>Hello , {user} 🙂</Text>
                     ) : (
-                      ""
+                      null
                     )}
                   </MenuItem>
                   <MenuItem
                     borderRadius={"2px"}
                     _hover={{
-                      bg: "#1D2B4F",
-                      color: "white",
+                      textDecoration: "underline",
                     }}
                   >
-                    {auth ? (
+                    {auth || adminAuth ? (
                       <Link
                         to={"#"}
                         onClick={() => {
@@ -202,24 +197,28 @@ export const Navbar = () => {
                         <Text fontWeight={"500"}>Logout</Text>
                       </Link>
                     ) : (
-                      <Link to={"/login"}>
-                        <Text fontWeight={"500"}>Login</Text>
-                      </Link>
+                      <Link to={"/login"}>Login</Link>
                     )}
                   </MenuItem>
-                  <MenuItem borderRadius={"2px"}>
-                    <Box ml={"6px"}>{/* <Signup /> */}</Box>
+                  <MenuItem borderRadius={"2px"} padding={"10px"}>
+                    <Box
+                      width={"100%"}
+                      _hover={{
+                        textDecoration: "underline",
+                      }}
+                    >
+                      <Signup text={"Signup"} />
+                    </Box>
                   </MenuItem>
-                  {auth ? (
+                  {adminAuth ? (
                     <MenuItem
                       borderRadius={"2px"}
                       _hover={{
-                        bg: "#1D2B4F",
-                        color: "white",
+                        textDecoration: "underline",
                       }}
                     >
                       <Link
-                        to={"/admin-dashboard"}
+                        to={"/admin/dashboard"}
                         onClick={() =>
                           toast({
                             title: "Welcome to Admin Dashboard..👋",
@@ -239,30 +238,29 @@ export const Navbar = () => {
                       </Link>
                     </MenuItem>
                   ) : (
-                    ""
+                    null
                   )}
                 </MenuList>
               </Menu>
             </Box>
           </Stack>
         </Flex>
-        <Box
-        >
+        <Box>
           <Flex
-        display={{ base: "none", md: "flex", lg: "flex" }}
-        bg={"#B43C3C"}
-        color={"white"}
-        justify={"space-evenly"}
-        padding={3}
-      >
-        <Text fontSize={13}>
-          the skies are blue and the dresses are darling
-        </Text>
-        <Text>HERE COMES THE SUN</Text>
-        <Text fontSize={12} textDecoration={"underline"}>
-          shop the May Collection
-        </Text>
-      </Flex>
+            display={{ base: "none", md: "flex", lg: "flex" }}
+            bg={"#B43C3C"}
+            color={"white"}
+            justify={"space-evenly"}
+            padding={3}
+          >
+            <Text fontSize={13}>
+              the skies are blue and the dresses are darling
+            </Text>
+            <Text>HERE COMES THE SUN</Text>
+            <Text fontSize={12} textDecoration={"underline"}>
+              shop the May Collection
+            </Text>
+          </Flex>
         </Box>
         <Collapse in={isOpen} animateOpacity>
           <MobileNav />
