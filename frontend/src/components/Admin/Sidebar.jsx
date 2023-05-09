@@ -36,7 +36,6 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 // import { logout } from "../../../redux/auth/action";
 import logo from "../../assets/JuneBerry2.png";
-import profile from "../../assets/profile.jpg";
 import { logout } from "../../redux/authReducer/action";
 const LinkItems = [
   { name: "DashBoard", icon: FiHome, path: "/admin/dashboard" },
@@ -115,7 +114,7 @@ const SidebarContent = ({ onClose, ...rest }) => {
         <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
       </Flex>
       {LinkItems.map((link) => (
-        <NavLink to={link.path} key={link.name}>
+        <NavLink   to={link.path}  onClick={onClose} key={link.name}>
           <NavItem key={link.name} icon={link.icon}>
             {link.name}
           </NavItem>
@@ -127,7 +126,7 @@ const SidebarContent = ({ onClose, ...rest }) => {
 
 const NavItem = ({ icon, children, ...rest }) => {
   return (
-    <Link style={{ textDecoration: "none" }} _focus={{ boxShadow: "none" }}>
+    <Link style={{ textDecoration: "none" }}  _focus={{ boxShadow: "none" }}>
       <Flex
         align="center"
         p="4"
@@ -136,7 +135,7 @@ const NavItem = ({ icon, children, ...rest }) => {
         role="group"
         cursor="pointer"
         _hover={{
-          bg: "#1d2b4f",
+          bg: "#3b475b",
           color: "#ffff",
         }}
         {...rest}
@@ -161,10 +160,9 @@ const MobileNav = ({ onOpen, ...rest }) => {
   const navigate = useNavigate();
   const toast = useToast();
   const dispatch = useDispatch();
-  const auth = true;
-  //   const auth = useSelector((store) => {
-  //     return store.AuthReducer.isAdminAuth;
-  //   });
+  // const auth = true;
+  const { user } = useSelector((store) => store.authReducer);
+  // console.log(name);
   return (
     <Flex
       ml={{ base: 0, md: 60 }}
@@ -228,7 +226,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
                   <Text fontSize="xs" color="gray.600">
                     <span style={{ fontSize: "16px", fontWeight: "600" }}>
                       {" "}
-                      Salil
+                      {user}
                     </span>{" "}
                     <br />
                     <span style={{ fontSize: "12px", fontWeight: "600" }}>

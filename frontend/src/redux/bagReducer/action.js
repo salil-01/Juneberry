@@ -25,14 +25,21 @@ export const updateWishlist = (obj) => (dispatch) => {
 export const addAddress = (obj) => (dispatch) => {
   dispatch({ type: ADD_ADDRESS, payload: obj });
 };
-export const postOrder = (data) => async (disapatch) => {
+export const postOrder = (data,token) => async (disapatch) => {
   disapatch({ type: POST_ORDER_REQUEST });
   await axios
-    .post(`https://american-eagle-mock-server.onrender.com/order`, data)
-    .then(() => {
+    .post(`${process.env.REACT_APP_BACKEND_URL}/order/create`, data, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((res) => {
+      console.log(res);
       disapatch({ type: POST_ORDER_SUCCESS });
     })
-    .catch(() => {
+    .catch((error) => {
+      console.log(error);
       disapatch({ type: POST_ORDER_FAILURE });
     });
 };

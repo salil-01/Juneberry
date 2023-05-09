@@ -14,6 +14,9 @@ import {
   Image,
   useToast,
   Spinner,
+  SimpleGrid,
+  Stack,
+  Skeleton,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -71,78 +74,97 @@ export const AllOrders = () => {
     <Box maxWidth="100%" backgroundColor={"white"} overflowX="auto">
       <Table variant="striped">
         <Tbody textTransform={"capitalize"}>
-          {totalOrder.isLoading ? (
-            <Box>
-              <Spinner size={"md"} />
-            </Box>
-          ) : (
-            totalOrder?.orders?.map((item) => {
-              return (
-                <Box
-                  key={item.id}
-                  borderWidth="2px"
-                  p={{ base: "0", md: "1rem" }}
-                  overflow={"auto"}
-                >
-                  <Badge fontSize={"1rem"} textAlign={"left"}>
-                    {" "}
-                    order Id : {item._id}
-                  </Badge>
-                  <Flex
-                    gap="9"
-                    justify={"space-around"}
-                    alignItems={"center"}
-                    py="1rem"
-                    minW={"1000px"}
-
+          {totalOrder.isLoading
+            ? [...Array(3).keys()].map((item) => {
+                return (
+                  <Stack key={item} width={"100%"} margin={"20px auto"}>
+                    <Skeleton
+                      height={{ base: "500", md: "500", lg: "280" }}
+                      margin={"auto"}
+                      width={"100%"}
+                      borderRadius={"sm"}
+                    />
+                  </Stack>
+                );
+              })
+            : totalOrder?.orders?.map((item) => {
+                return (
+                  <Box
+                    key={item.id}
+                    borderWidth="2px"
+                    p={{ base: "0", md: "1rem" }}
+                    overflow={"auto"}
                   >
-                    <Box>
-                      <Image src={item.img} boxSize={"100%"} />
-                    </Box>
-                    <Text>Name : {item.author}</Text>
-                    <Text>City: {item.city}</Text>
-
-                    <Button
-                      textTransform={"capitalize"}
-                      onClick={() => toggleStatus(item._id)}
-                      colorScheme={item.status == "pending" ? "green" : "red"}
-                      isDisabled={item.status == "pending" ? false : true}
-                      rightIcon={
-                        item.status == "pending" ? <TimeIcon /> : <CheckIcon />
-                      }
-                      _hover={{
-                        bg: "#EF6C00",
-                        color: "white",
-                      }}
+                    <Badge
+                      fontSize={"1rem"}
+                      margin={"0px 0px 10px 0px"}
+                      textAlign={"left"}
                     >
-                      {item.status === "pending" ? "Pending" : "Delievered"}
-                    </Button>
-                  </Flex>
-                  <Flex flexDir={"column"} gap="5">
+                      {" "}
+                      order Id : {item._id}
+                    </Badge>
                     <Flex
-                      key={item._id}
-                      gap="15"
-                      align={"center"}
-                      borderWidth="1px"
-                      px="1rem"
-                      py="0.2rem"
-                      backgroundColor={"teal.400"}
-                      color={"black"}
-                      minW={"1000px"}
-                      borderRadius={"5px"}
+                      gap="9"
+                      justify={"space-around"}
+                      alignItems={"center"}
+                      flexDirection={{ sm: "column", md: "column", lg: "row" }}
                     >
-                      <Box width="10rem">{item.name.substring(0, 15)}</Box>
-                      <Flex gap="4">
-                        <Text>Price: ₹{item.price}</Text>
+                      <Box width={{ sm: "50%", md: "50%", lg: "10%" }}>
+                        <Image src={item.img} />
+                      </Box>
+                      <SimpleGrid
+                        width={"40%"}
+                        textAlign={"left"}
+                        columnGap={"25px"}
+                        rowGap={"10px"}
+                        gridTemplateColumns={"repeat(2,1fr)"}
+                      >
+                        <Text>
+                          <b>User : {item.author}</b>
+                        </Text>
+                        <Text>City: {item.city}</Text>
+                        <Text>Price: ${item.price}</Text>
                         <Text>Quantity: {item.quantity}</Text>
-                      </Flex>
-                      <Box pl="7rem">ordered on : {item.created}</Box>
+                      </SimpleGrid>
+                      <Button
+                        textTransform={"capitalize"}
+                        onClick={() => toggleStatus(item._id)}
+                        colorScheme={item.status == "pending" ? "green" : "red"}
+                        isDisabled={item.status == "pending" ? false : true}
+                        rightIcon={
+                          item.status == "pending" ? (
+                            <TimeIcon />
+                          ) : (
+                            <CheckIcon />
+                          )
+                        }
+                        _hover={{
+                          bg: "#EF6C00",
+                          color: "white",
+                        }}
+                      >
+                        {item.status === "pending" ? "Pending" : "Delievered"}
+                      </Button>
                     </Flex>
-                  </Flex>
-                </Box>
-              );
-            })
-          )}
+                    <Flex flexDir={"column"} gap="5">
+                      <Flex
+                        key={item._id}
+                        alignItems={"center"}
+                        justifyContent={"space-around"}
+                        borderWidth="1px"
+                        padding={"5px"}
+                        backgroundColor={"teal.100"}
+                        color={"black"}
+                        borderRadius={"5px"}
+                        margin={"10px 0px 10px 0px"}
+                      >
+                        <Box>Product Name : {item.name}</Box>
+                        <Box>ordered on : {item.created}</Box>
+                      </Flex>
+                    </Flex>
+                  </Box>
+                );
+              })}
         </Tbody>
       </Table>
     </Box>
