@@ -10,7 +10,7 @@ export const UserPrivateRoute = ({ children }) => {
     return store.authReducer.isAdminAuth;
   });
   // console.log(auth);
-  return !auth || adminAuth ? (
+  return !auth  ? (
     <Navigate to={"/login"} state={location.pathname} replace={true} />
   ) : (
     children

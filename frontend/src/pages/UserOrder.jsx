@@ -65,7 +65,7 @@ export const UserOrder = () => {
           );
         })
       ) : order.length === 0 ? (
-        <Box mt={"40vh"}>
+        <Box mt={"10vh"}>
           <Heading fontSize={"1.5rem"}>No Order History Found</Heading>
           <Text>
             Head Over to{" "}

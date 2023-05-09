@@ -153,7 +153,7 @@ export const SingleProductPreview = ({ setTotal, setPrice }) => {
             borderRadius={0}
             _hover={{ bgColor: "none" }}
           >
-            <Link to={"/products-men"}>ADD ITEMS</Link>
+            <Link to={"/products/dress"}>ADD ITEMS</Link>
           </Button>
         </Box>
       )}
