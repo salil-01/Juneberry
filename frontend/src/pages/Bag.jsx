@@ -33,8 +33,6 @@ import { addAddress } from "../redux/bagReducer/action";
 import { SingleProductPreview } from "../components/Bag/SingleProductPreview";
 import { getData } from "../utilis/localStorage";
 import CardDetail from "../components/Bag/Payment";
-//   import Navbar from "../components/Homepage/Navbar";
-//   import Footer from "../components/Homepage/Footer";
 
 const initialData = {
   name: "",
