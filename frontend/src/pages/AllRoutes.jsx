@@ -27,16 +27,14 @@ export const AllRoutes = () => {
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
 
-      <Route path="/products" element={<ProductPage />} />
+      <Route path="/products/dress" element={<ProductPage />} />
 
-      <Route path="/shoes" element={<ShoesPage />} />
-      
+      <Route path="/products/shoes" element={<ShoesPage />} />
 
       <Route path="/:category/:id" element={<SingleProductPage />} />
 
       <Route path="/bag" element={<Bag />} />
       <Route path="/orders" element={<UserOrder />} />
-      <Route path="/wishlist" element={<WishList />} />
       <Route path="/admin" element={<AdminPage />} />
       <Route
         path="/admin/dashboard"

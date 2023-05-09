@@ -55,7 +55,7 @@ export const Navbar = () => {
 
   return (
     <>
-      <Box position={"fixed"} width={"100%"} top={0}>
+      <Box position={"sticky"} width={"100%"} top={0} zIndex={1}>
         <Flex
           bg={useColorModeValue("white", "gray.800")}
           color={useColorModeValue("gray.600", "white")}
@@ -89,8 +89,6 @@ export const Navbar = () => {
           <Flex
             flex={{ base: 1 }}
             justify={{ base: "center", md: "start" }}
-            // custom work
-            // border="1px solid red"
             alignItems={"center"}
           >
             <Box
