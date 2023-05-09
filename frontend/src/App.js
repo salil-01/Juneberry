@@ -28,7 +28,7 @@ function App() {
         <Link to={"/admin/dashboard"}>Admin</Link>
         <Link to={"/orders"}>Orders</Link>
       </Flex>
-      {/* <Navbar /> */}
+      <Navbar />
 
       <AllRoutes />
       {/* <Footer /> */}

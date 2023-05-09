@@ -35,7 +35,7 @@ import { BsSearch } from "react-icons/bs";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 // import { logout } from "../../../redux/auth/action";
-import logo from "../../assets/JuneBerry2.png";
+import logo from "../../assets/juneberry.png";
 import { logout } from "../../redux/authReducer/action";
 const LinkItems = [
   { name: "DashBoard", icon: FiHome, path: "/admin/dashboard" },
