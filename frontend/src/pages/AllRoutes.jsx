@@ -19,6 +19,7 @@ import { ShoesPage } from "./ShoesPage";
 import { Navbar } from "../components/Navbar";
 import { Footer } from "../components/Footer";
 import { UserPrivateRoute } from "../components/UserPrivateRoute";
+import { AdminPrivateRoute } from "../components/AdminPrivateRoute";
 
 export const AllRoutes = () => {
   const location = useLocation();
@@ -46,8 +47,6 @@ export const AllRoutes = () => {
           </>
         }
       />
-      {/* <Route path="/signup" element={<Signup />} /> */}
-
       <Route
         path="/products/dress"
         element={
@@ -80,7 +79,7 @@ export const AllRoutes = () => {
           </>
         }
       />
-
+      
       <Route
         path="/bag"
         element={
@@ -97,11 +96,11 @@ export const AllRoutes = () => {
         path="/orders"
         element={
           <UserPrivateRoute>
-          <>
-            <Navbar />
-            <UserOrder />
-            <Footer />
-          </>
+            <>
+              <Navbar />
+              <UserOrder />
+              <Footer />
+            </>
           </UserPrivateRoute>
         }
       />
@@ -111,49 +110,61 @@ export const AllRoutes = () => {
       <Route
         path="/admin/dashboard"
         element={
-          <Sidebar>
-            <Dashboard />
-          </Sidebar>
+          <AdminPrivateRoute>
+            <Sidebar>
+              <Dashboard />
+            </Sidebar>
+          </AdminPrivateRoute>
         }
       />
       <Route
         path="/admin/products"
         element={
-          <Sidebar>
-            <AllProducts />
-          </Sidebar>
+          <AdminPrivateRoute>
+            <Sidebar>
+              <AllProducts />
+            </Sidebar>
+          </AdminPrivateRoute>
         }
       />
       <Route
         path="/admin/:category/edit/:id"
         element={
-          <Sidebar>
-            <EditProduct />
-          </Sidebar>
+          <AdminPrivateRoute>
+            <Sidebar>
+              <EditProduct />
+            </Sidebar>
+          </AdminPrivateRoute>
         }
       />
       <Route
         path="/admin/products/add"
         element={
-          <Sidebar>
-            <AddProduct />
-          </Sidebar>
+          <AdminPrivateRoute>
+            <Sidebar>
+              <AddProduct />
+            </Sidebar>
+          </AdminPrivateRoute>
         }
       />
       <Route
         path="/admin/users"
         element={
-          <Sidebar>
-            <Users />
-          </Sidebar>
+          <AdminPrivateRoute>
+            <Sidebar>
+              <Users />
+            </Sidebar>
+          </AdminPrivateRoute>
         }
       />
       <Route
         path="/admin/orders"
         element={
-          <Sidebar>
-            <AllOrders />
-          </Sidebar>
+          <AdminPrivateRoute>
+            <Sidebar>
+              <AllOrders />
+            </Sidebar>
+          </AdminPrivateRoute>
         }
       />
       <Route path="*" element={<NotFound />} />

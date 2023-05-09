@@ -6,11 +6,13 @@ export const UserPrivateRoute = ({ children }) => {
   const auth = useSelector((store) => {
     return store.authReducer.isAuth;
   });
-  console.log(auth);
-    return !auth ? (
-      <Navigate to={"/login"} state={location.pathname} replace={true} />
-    ) : (
-      children
-    );
-//   return !auth ? <Login text={"Bag"} /> : children;
+  const adminAuth = useSelector((store) => {
+    return store.authReducer.isAdminAuth;
+  });
+  // console.log(auth);
+  return !auth || adminAuth ? (
+    <Navigate to={"/login"} state={location.pathname} replace={true} />
+  ) : (
+    children
+  );
 };

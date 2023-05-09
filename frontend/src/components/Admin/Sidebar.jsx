@@ -14,27 +14,23 @@ import {
   useDisclosure,
   Menu,
   MenuButton,
-  MenuDivider,
   MenuItem,
   MenuList,
   Input,
   Image,
-  Img,
   Avatar,
 } from "@chakra-ui/react";
 import { FiHome, FiMenu, FiBell, FiChevronDown } from "react-icons/fi";
 import { IoMdSettings } from "react-icons/io";
 import { MdAddShoppingCart } from "react-icons/md";
 import { HiUsers } from "react-icons/hi";
-// import { TbReportMoney } from "react-icons/tb";
 import { BsBagCheck, BsBag } from "react-icons/bs";
-// import { AiOutlineBars } from "react-icons/ai";
 import { FaUserFriends } from "react-icons/fa";
 import { useToast } from "@chakra-ui/react";
 import { BsSearch } from "react-icons/bs";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-// import { logout } from "../../../redux/auth/action";
+
 import logo from "../../assets/juneberry.png";
 import { logout } from "../../redux/authReducer/action";
 const LinkItems = [
@@ -114,7 +110,7 @@ const SidebarContent = ({ onClose, ...rest }) => {
         <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
       </Flex>
       {LinkItems.map((link) => (
-        <NavLink   to={link.path}  onClick={onClose} key={link.name}>
+        <NavLink to={link.path} onClick={onClose} key={link.name}>
           <NavItem key={link.name} icon={link.icon}>
             {link.name}
           </NavItem>
@@ -126,7 +122,7 @@ const SidebarContent = ({ onClose, ...rest }) => {
 
 const NavItem = ({ icon, children, ...rest }) => {
   return (
-    <Link style={{ textDecoration: "none" }}  _focus={{ boxShadow: "none" }}>
+    <Link style={{ textDecoration: "none" }} _focus={{ boxShadow: "none" }}>
       <Flex
         align="center"
         p="4"
@@ -268,15 +264,15 @@ const MobileNav = ({ onOpen, ...rest }) => {
                   color: "white",
                 }}
                 onClick={() => {
-                  toast({
-                    title: "Logged Out Successfully",
-                    position: "top",
-                    description: "Redirecting to Home Page....",
-                    status: "success",
-                    duration: 3000,
-                    isClosable: true,
-                  });
                   dispatch(logout).then(() => {
+                    toast({
+                      title: "Logged Out Successfully",
+                      position: "top",
+                      description: "Redirecting to Home Page....",
+                      status: "success",
+                      duration: 3000,
+                      isClosable: true,
+                    });
                     navigate("/");
                   });
                 }}

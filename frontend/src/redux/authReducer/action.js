@@ -12,16 +12,16 @@ export const login = (userData) => async (dispatch) => {
     .then((res) => {
       if (res.data.token) {
         dispatch({ type: LOGIN_SUCCESS, payload: res.data });
-        // return Promise.resolve();
+        return Promise.resolve();
       } else {
         dispatch({ type: LOGIN_FAILURE });
-        // return Promise.reject();
+        return Promise.reject();
       }
     })
     .catch((err) => {
       console.log(err);
       dispatch({ type: LOGIN_FAILURE });
-      // return Promise.reject();
+      return Promise.reject();
     });
 };
 

@@ -19,7 +19,7 @@ import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../redux/authReducer/action";
 import { Signup } from "./Signup";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 const inital = {
   email: "",
   password: "",
@@ -29,11 +29,9 @@ export const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setisLoading] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
   const toast = useToast();
   const dispatch = useDispatch();
-  let authData = useSelector((store) => {
-    return store.authReducer;
-  });
   //   console.log(authData.token);
   const handleSubmit = async (event) => {
     event.preventDefault();

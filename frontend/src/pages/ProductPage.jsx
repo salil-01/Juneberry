@@ -146,7 +146,7 @@ export const ProductPage = () => {
                     </Stack>
                   );
                 })
-              : products?.map((el) => {
+              : products.length!==0 && products.map((el) => {
                   return (
                     <Link key={el._id} to={`/${"dress"}/${el._id}`}>
                       <Box

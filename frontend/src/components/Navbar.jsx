@@ -26,18 +26,17 @@ import logo from "../assets/juneberry.png";
 import { CiSearch } from "react-icons/ci";
 import { IoBagOutline, IoPersonOutline } from "react-icons/io5";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { Login } from "../pages/Login";
 import { Signup } from "../pages/Signup";
-// import Signup from "../../pages/Signup";
-// import { logout } from "../../redux/auth/action";
+import { logout } from "../redux/authReducer/action";
 
 export const Navbar = () => {
   const { isOpen, onToggle } = useDisclosure();
   const [show, setShow] = useState(false);
   const dispatch = useDispatch();
   const toast = useToast();
+  const navigate = useNavigate();
   const bagTotal = useSelector((store) => {
     return store.bagReducer.bag.length;
   });
@@ -115,6 +114,7 @@ export const Navbar = () => {
             justify={"flex-end"}
             direction={"row"}
             spacing={4}
+            mt={"15px"}
           >
             {show === true ? (
               <Box>
@@ -168,11 +168,20 @@ export const Navbar = () => {
                 </MenuButton>
                 <MenuList padding={"10px"}>
                   <MenuItem>
-                    {auth || adminAuth? (
+                    {auth || adminAuth ? (
                       <Text fontWeight={"500"}>Hello , {user} 🙂</Text>
-                    ) : (
-                      null
-                    )}
+                    ) : null}
+                  </MenuItem>
+                  <MenuItem
+                    _hover={{
+                      textDecoration: "underline",
+                    }}
+                  >
+                    {auth || adminAuth ? (
+                      <Link to={"/orders"}>
+                        <Text fontWeight={"500"}>Orders</Text>
+                      </Link>
+                    ) : null}
                   </MenuItem>
                   <MenuItem
                     borderRadius={"2px"}
@@ -184,20 +193,23 @@ export const Navbar = () => {
                       <Link
                         to={"#"}
                         onClick={() => {
-                          // dispatch(logout);
+                          dispatch(logout);
                           toast({
                             title: "Logged Out Successfully",
                             position: "top",
                             status: "success",
-                            duration: 3000,
+                            duration: 2000,
                             isClosable: true,
                           });
+                          navigate("/");
                         }}
                       >
                         <Text fontWeight={"500"}>Logout</Text>
                       </Link>
                     ) : (
-                      <Link to={"/login"}>Login</Link>
+                      <Link to={"/login"}>
+                        <Text fontWeight={"500"}>Login</Text>
+                      </Link>
                     )}
                   </MenuItem>
                   <MenuItem borderRadius={"2px"} padding={"10px"}>
@@ -224,7 +236,7 @@ export const Navbar = () => {
                             title: "Welcome to Admin Dashboard..👋",
                             position: "top",
                             status: "success",
-                            duration: 3000,
+                            duration: 2000,
                             isClosable: true,
                           })
                         }
@@ -237,9 +249,7 @@ export const Navbar = () => {
                         </Text>
                       </Link>
                     </MenuItem>
-                  ) : (
-                    null
-                  )}
+                  ) : null}
                 </MenuList>
               </Menu>
             </Box>
@@ -274,18 +284,26 @@ const DesktopNav = () => {
   const linkColor = useColorModeValue("blackAlpha.900");
   const linkHoverColor = useColorModeValue("teal");
   const popoverContentBgColor = useColorModeValue("white", "gray.800");
+  const defaultLinkStyle = { borderBottom: "3px solid white" };
+  const activeLinkStyle = {
+    borderBottom: "3px solid rgb(75,86,102)",
+  };
 
   return (
-    <Flex width={"100%"} justifyContent={"space-around"}>
+    <Flex width={"100%"} mt={"20px"} justifyContent={"space-around"}>
       {/* Mens section */}
       <Popover trigger={"hover"} placement={"bottom-start"}>
         <PopoverTrigger>
-          <Link
+          <NavLink
             p={2}
             to={"/products/dress"}
             fontSize={"16px"}
             fontWeight={500}
             color={linkColor}
+            style={({ isActive }) => {
+              return isActive ? activeLinkStyle : defaultLinkStyle;
+            }}
+            end
           >
             <Text
               fontSize={"18px"}
@@ -293,10 +311,11 @@ const DesktopNav = () => {
               _hover={{
                 color: linkHoverColor,
               }}
+              // borderBottom={"2px solid"}
             >
               Dresses
             </Text>
-          </Link>
+          </NavLink>
         </PopoverTrigger>
         <PopoverContent
           borderTop={0}
@@ -463,12 +482,15 @@ const DesktopNav = () => {
       {/* Shoes section */}
       <Popover trigger={"hover"} placement={"bottom-start"}>
         <PopoverTrigger>
-          <Link
+          <NavLink
             p={2}
             to={"/products/shoes"}
             fontSize={"16px"}
             fontWeight={500}
             color={linkColor}
+             style={({ isActive }) => {
+              return isActive ? activeLinkStyle : defaultLinkStyle;
+            }}
           >
             <Text
               fontSize={"18px"}
@@ -479,7 +501,7 @@ const DesktopNav = () => {
             >
               Shoes
             </Text>
-          </Link>
+          </NavLink>
         </PopoverTrigger>
         <PopoverContent
           borderTop={0}
