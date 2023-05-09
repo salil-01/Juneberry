@@ -92,7 +92,7 @@ export const ProductPage = () => {
                     </Flex>
                     <Box className="productscontainer2">
                         {products?.map((el) => {
-                            return <Link to={`/singleproduct/${el._id}`}>
+                            return <Link to={`/${"dress"}/${el._id}`}>
                                 <Box key={el._id} style={{ color: "gray", textAlign: "left", padding: "3%" }}>
                                     <img src={el.img} alt={el.name} />
                                     <p>{el.name}</p>
