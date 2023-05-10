@@ -49,15 +49,15 @@ Collaborative project built by a team of 4 executed in 5 days.
 
 - 👤 [Salil Upadhyay | Team Lead](https://github.com/salil-01)
 
-  - Key-Responsibility -> Complete Backend, Complete Admin Side, Sign-In & Sign-Up, Bag Page, Payment Page
+  - `Key Responsibility > Complete Backend, Complete Admin Side, Sign-In & Sign-Up, Bag Page, Payment Page`
 
 - 👤 [Vikas K Sharma]()
 
--     Key-Responsibility -> Product Page, Single Product Page
+  -     Key Responsibility > Product Page, Single Product Page
 
 - 👤 [Lokendra Pal Shekhawat]()
 
--     Key-Responsibility -> Homepage 
+  -     Key Responsibility - Homepage 
 
 - 👤 [Soumya Rabjan Rout]()
--     Key-Responsibility -> 
+  -     Key Responsibility - 
