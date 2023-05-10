@@ -27,7 +27,7 @@ Collaborative project built by a team of 4 & completed in 5 days.
 </div>
 
 ## Folder Structure 📂
-`
+```
 .
 ├── backend/
 │   ├── config/
@@ -93,7 +93,7 @@ Collaborative project built by a team of 4 & completed in 5 days.
         │   └── getdata
         ├── app
         └── index
-`
+```
 ## Snapshots :camera:
 * Home page
 
