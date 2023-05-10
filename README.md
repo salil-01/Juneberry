@@ -7,7 +7,7 @@ Collaborative project built by a team of 4 executed in 5 days.
 
 ## Deployed Links🔗
 
-- Frontend:- [](https://juneberry.netlify.app/)
+- Frontend:- <a href="https://juneberry.netlify.app/"> <img src="https://img.shields.io/badge/netlify-%23000000.svg?style=for-the-badge&logo=netlify&logoColor=#00C7B7" align="center" alt="git"/> </a>
 - Backend:- [](https://juneberry-backend.onrender.com/)
 
 ## Tech Stack 💻
@@ -49,11 +49,11 @@ Collaborative project built by a team of 4 executed in 5 days.
 
 - 👤 [Salil Upadhyay | Team Lead](https://github.com/salil-01)
 
-  - ```Key Responsibility > Complete Backend, Complete Admin Side, Sign-In & Sign-Up, Bag Page, Payment Page```
+  -     Key Responsibility - Complete Backend, Complete Admin Side, Sign-In & Sign-Up, Bag Page, Payment Page
 
 - 👤 [Vikas K Sharma]()
 
-  -     Key Responsibility > Product Page, Single Product Page
+  -     Key Responsibility - Product Page, Single Product Page
 
 - 👤 [Lokendra Pal Shekhawat]()
 
